@@ -132,4 +132,6 @@ std::string MethodName;
 Называются с маленькой буквы в camelCase. Допускается наименование с маленькой буквы в snake_case.
 
 
+## Примеры
 
+https://github.com/contactless/wb-homa-drivers/tree/master/wb-mqtt-serial
