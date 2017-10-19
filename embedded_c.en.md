@@ -10,7 +10,7 @@ These are similar those what we have got used in C++. Read more in: https://gith
 
 ## Naming
 In embedded C we don't follow CamelCase style however we use snake_case. At snake_case style function and variable names can
-include either lower or upper cases, like *snake_case* or *Snake_Case* but words must be separated by underscore character (_). 
+include **only lower case characters**, like *snake_case* (even though officially upper case characters are also allowed) and words must be separated by underscore character (_). 
 
 ## Library naming
 1. When you add a new module to your project you should put it in a new library. 
