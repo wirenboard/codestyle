@@ -7,28 +7,20 @@ see any collision between documents, please follow the guide below.
 
 ## Marking
 
-For identation blocks only spaces are used and 4 spaces count as 1 tab.
+Indent is 4 spaces wide. You can configure your IDE to insert 4 spaces on pressing Tab.
 
 Aritmetic operations are always separated by spaces:
 ```C++
 int sum = a + b;
 ```
-Whitspace should be placed before each bracket opening.
-```C++
-int function (int a, int b, int c) 
-{
-  int d = abs ( (a * sqrt (b)) + c);
-  return d;
-}
-```
-
 At sequence of variables comma should be placed right after variable name and the comma should be followed by space before
-next variable name:
+next variable name. It is true for all kind of punctuation mark (comma, semmicolon, question mark, etc):
 
 ```C++
 int sum = GetSum (a, b);
+if (! variable) {
+....
 ```
-
 
 ## Parentheses
 
@@ -110,8 +102,8 @@ At shortened names, variable name should be started with capital letter: *TMqttC
 
 ### Classes
 
-Class names should be started with capital letters:  *TModbusClient*.
-Base classes should include *Base* at the end of class name: *TModbusClientBase*.
+ * Class names should start with capital *T*:  *TModbusClient*.
+ * Base classes should include *Base* at the end of class name: *TModbusClientBase*.
 
 Intarface class name should start with letter "*I*" for example: *class IException*
 
