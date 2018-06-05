@@ -24,14 +24,14 @@ include **only lower case characters**, like *snake_case* (even though officiall
 Since in C is no option to use namespace or classes, somehow you should mark your function's library and avoid this kind of
 program code in *main.c*:
 ```C
-int pin_value = read_value_digit ();//function for module1
-set_config (CONFIG_1);              //function for module2
+int pin_value = read_value_digit();//function for module1
+set_config(CONFIG_1);              //function for module2
 ```
 Better to mark library name as a prefix for each function even if it is a static function and used only in the given
 library:
 ```C
-int pin_value = mcp230xx_read_gpio ();
-ads1015_set_config (ADS_CONFIG_1);
+int pin_value = mcp230xx_read_gpio();
+ads1015_set_config(ADS_CONFIG_1);
 ```
 It is also true for *defines* where you should mark where is it defined:
 ```C
