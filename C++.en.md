@@ -2,7 +2,7 @@ Wiren Board C++ Style Guide
 ========================
 
 The following sheet is based on Yandex code style for C++. If any guideline is missing from the following document, 
-please follow Yandex official documentation: https://clickhouse.yandex/docs/en/development/style.html . But if you
+please follow Yandex official documentation: https://github.com/catboost/catboost/blob/master/CPP_STYLE_GUIDE.md . But if you
 see any collision between documents, please follow the guide below. 
 
 ## Marking
