@@ -62,3 +62,88 @@ uint16_t gpio_config = mcp230xx_read_config();
 if (gpio_config & MCP230xx_REG_IOCON_BANK) {
 ...
 ```
+## Кодировка
+Все файлы должны быть созданы в кодировке UTF-8.
+
+## Конец строки
+Конец файла всегда заканчивается переводом строки.
+
+## Выравнивание
+Пробелы
+
+1. Отступы 4 пробела между блоками - не использовать символ табуляции (TAB).
+2. Пробелами разделяются знаки ``` + != = == - / ```... с двух сторон.
+3. Пробелы между ``` if while do for``` и открывающей скобкой выражения.
+4. Аргументы функций перечисляются без пробелов.
+5. Для макросов, которые именуют константы, значения от 40 до 60 знакоместа с начала строки сдвигать пробелами кратно 4 символам.
+Это нужно для того чтобы оставить место для макросов с длинными именами, которые могут быть потенциально добавлены позже в процессе разработки.
+
+Отступы и пробелы можно проверять, например, используя команду git diff. С помощью команды git diff master проверяется то что не изменено форматирование уже написанного ранее кода относительно мастер-ветки.
+
+Не использовать отступы для выравнивания
+
+Примеры плохого кода:
+```C
+static uint16_t task_next_free_id[TASK_TYPE_NUMBER] = {GET_TASK_ID(TASK_IMMEDIATE, 0),
+                                                       GET_TASK_ID(TASK_BACKGROUND, 0)};
+```
+
+```C
+    hlw8012_channels_state[channel].energy_factor = fix16_to_int(fix16_mul(fix16_div(fix16_from_int(hlw8012_channel_defs[channel].energy_unit_time),hlw8012_channels_state[channel].value_factor),F16(HLW8012_PULSE_COUNTING_FACTOR)));
+```
+
+```C
+    hlw8012_channels_state[channel].energy_factor = fix16_to_int(fix16_mul(fix16_div(fix16_from_int(hlw8012_channel_defs[channel].energy_unit_time),
+                                 hlw8012_channels_state[channel].value_factor),F16(HLW8012_PULSE_COUNTING_FACTOR)));
+```
+
+Примеры хорошего кода:
+
+```C
+static uint16_t task_next_free_id[TASK_TYPE_NUMBER] = {
+    GET_TASK_ID(TASK_IMMEDIATE, 0),
+    GET_TASK_ID(TASK_BACKGROUND, 0)
+};
+```
+
+```C
+    hlw8012_channels_state[channel].energy_factor = fix16_to_int(
+        fix16_mul(
+            fix16_div(
+                fix16_from_int(
+                    hlw8012_channel_defs[channel].energy_unit_time
+                ),
+                hlw8012_channels_state[channel].value_factor
+            ),
+            F16(HLW8012_PULSE_COUNTING_FACTOR)
+        )
+    );
+```
+## Обозначение и скобки
+Перенос скобки на следущую строку начала определения осуществляется в функциях, в остальном нет.
+Расстановка скобок:
+```C
+void function(void)
+{
+    if (a == b) {
+    // single str action use brackets
+    }
+
+    if (c == d) {
+    // do if equal
+    } else {
+    // do if not equal
+    }
+}
+```
+Всегда скобки, даже когда тело функции 1 строчка и даже когда его нет:
+```C
+while () {};
+
+if () {
+    return 0;
+} else {
+    return 1;
+}
+```
+Ранее допущенные ошибки форматирования исправляются в отдельной ветке с ПР согласно кодстайлу.
