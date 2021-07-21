@@ -12,6 +12,13 @@ These are similar those what we have got used in C++. Read more in: https://gith
 In embedded C we don't follow CamelCase style however we use snake_case. At snake_case style function and variable names can
 include **only lower case characters**, like *snake_case* (even though officially upper case characters are also allowed) and words must be separated by underscore character (_). 
 
+some text
+
+
+text
+
+fdkjasj
+
 ## Library naming
 1. When you add a new module to your project you should put it in a new library. 
 2. Please avoid libraries like: *peripherals.h*.
@@ -33,12 +40,63 @@ library:
 int pin_value = mcp230xx_read_gpio();
 ads1015_set_config(ADS_CONFIG_1);
 ```
+
+идеи про лекцию гит
+0м    склонировать чтото https://github.com/wirenboard/codestyle
+	сразу вторую копию
+
+    remote
+	status
+	папка .git
+
+5м    посмотреть историю и кто что делал log show --oneline гитхаб хэши
+        less
+        log --oneline
+		--help
+        show
+        log -r
+		про ветки
+        любые ветки,
+	     по файлам
+
+		добавление
+		добавить не все не делать -А никогда
+		индекс как добавить как удалить
+		комит
+
+	    git checkout все, один файл -p на ветку
+
+    	аменд
+
+		дифы изменения между ветками в вскоде и в консоли и в гитхабе
+
+час
+
+
+	дифф перед пуш
+
 It is also true for *defines* where you should mark where is it defined:
 ```C
 #define MCP23008_IODIR                  0x00
-#define MCP23008_IPOL                   0x01
-#define MCP23008_GPINTEN                0x02
 #define MCP23008_DEFVAL                 0x03
+
+
+	пуш НЕ В МАСТЕР
+	пр
+	диф в пр
+
+    fetch
+	
+	попереключаться сделать черипик
+
+   	сразу про блейм
+    origin
+
+
+    stash
+
+    -
+	    удаление из комита через аменд - это reset HEAD^
 #define MCP23008_INTCON                 0x04
 ```
 
