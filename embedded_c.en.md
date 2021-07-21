@@ -92,6 +92,8 @@ It is also true for *defines* where you should mark where is it defined:
    	сразу про блейм
     origin
 
+ckidkhdfflwkj
+
 
     stash
 
