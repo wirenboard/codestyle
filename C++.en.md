@@ -62,16 +62,6 @@ if (foo) {
     std::cout << "foo" << std:endl;
 }
 ```
-Single-line expressions are allowed only in very reasonable cases and only if it does not violate readability.
-
-```C++
-if (foo) {return STATUS_ERROR};
-if (bar) {return STATUS_ERROR};
-
-// ...
-
-return  STATUS_OK;
-```
 
 Loops without body should be enclosed with curly brackets. 
 ```C++
