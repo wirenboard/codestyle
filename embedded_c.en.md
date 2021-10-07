@@ -62,3 +62,25 @@ uint16_t gpio_config = mcp230xx_read_config();
 if (gpio_config & MCP230xx_REG_IOCON_BANK) {
 ...
 ```
+
+## C Macros
+
+Using of C preproccessor is generally discouraged because it makes source code hard to read and mantain.
+
+Whenever possible, please use C language features instead.
+
+Common use cases for C macros include:
+
+* `#define`-ing constants, for instance, array sizes, configuration parameters, register addresses or so on. 
+* switching on and off particular chunks of firmware via `#if` and friends. Prefereable done at module level.
+* compile-time magic otherwise impossible to implement. Say, altering of control flow in coroutines or implementing assert. Try to limit it to few low-level libraries.
+
+If expressions are used in macro, they must be wrapped in `do {} while (0)`. 
+Function-like macros should follow function-like calling semantics. Consider `START_TIMER();` instead of `START_TIMER;`.
+
+All macros must be named in `CAPITAL` letters.
+
+Please consider the following alternatives to C preprocessor:
+* `if`s with condition evaluating to `true` at compile time insted of `#if`s
+* `const` variables instead of `#define`s
+* `static inline` functions instead of macros containing expressions.
