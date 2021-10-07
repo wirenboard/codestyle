@@ -10,9 +10,9 @@
         AfterUnion: true,
         AfterEnum: true,
         },
-    ColumnLimit: 102,
+    ColumnLimit: 110,
     AllowShortIfStatementsOnASingleLine: Never,
-    AllowShortLoopsOnASingleLine: true,
+    AllowShortLoopsOnASingleLine: false,
     PointerAlignment: Left,
     AccessModifierOffset: -4,
     AllowShortFunctionsOnASingleLine: Empty,
@@ -30,4 +30,4 @@
     AlwaysBreakAfterReturnType: None,
     AlwaysBreakAfterDefinitionReturnType: None,
     PenaltyReturnTypeOnItsOwnLine: 1000000,
-} 
+}
