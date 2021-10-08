@@ -9,8 +9,7 @@ fi
 FAIL=0
 
 for dir in "$@"; do
-    echo $dir
-    find ${dir} -iname *.h -o -iname *.cpp | xargs clang-format --dry-run --Werror -i || FAIL=1
+    find ${dir} -iname *.h -o -iname *.cpp -exec clang-format -n --Werror -i '{}' + || FAIL=1
 done
 
 exit $FAIL
