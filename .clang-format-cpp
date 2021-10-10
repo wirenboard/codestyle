@@ -19,8 +19,8 @@
     PointerAlignment: Left,
     AccessModifierOffset: -4,
     AllowShortFunctionsOnASingleLine: None,
-    AlignConsecutiveAssignments: true,
-    AlignConsecutiveDeclarations: true,
+    AlignConsecutiveAssignments: false,
+    AlignConsecutiveDeclarations: false,
     AlignTrailingComments: true,
     AllowAllParametersOfDeclarationOnNextLine: false,
     BinPackParameters: false,
@@ -42,6 +42,6 @@
     IndentCaseLabels: true,
     BreakConstructorInitializers: BeforeColon,
     ConstructorInitializerAllOnOneLineOrOnePerLine: true,
-    AllowShortCaseLabelsOnASingleLine: true,
+    AllowShortCaseLabelsOnASingleLine: false,
     SpaceBeforeCtorInitializerColon: false,
 }
