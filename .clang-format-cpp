@@ -33,7 +33,6 @@
     AlwaysBreakAfterReturnType: None,
     AlwaysBreakAfterDefinitionReturnType: None,
     PenaltyReturnTypeOnItsOwnLine: 1000000,
-    SortIncludes: false,
     SpaceBeforeRangeBasedForLoopColon: false,
     FixNamespaceComments: false,
     SpaceBeforeInheritanceColon: false,
