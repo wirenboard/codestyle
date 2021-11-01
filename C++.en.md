@@ -123,6 +123,12 @@ std::string MethodName;
 Local variable names should start with small letter and followed by capital letters (camelCase): *magicVariableName*. As a second
 option snake_case could be also used, but please be careful and never mix it with camelCase.
 
+## C macros
+
+It's generally very bad idea to use C preprocessor. C++ language features are to be used instead.
+
+There are very rare circumstances when using C macros is justified, for instance, by significatnly improving source code readability. In these rare cases it's allowed to use C preprocessor, but please be ready to defend this design decision during code review.
+
 ## Examples
 
 https://github.com/contactless/wb-homa-drivers/tree/master/wb-mqtt-serial
