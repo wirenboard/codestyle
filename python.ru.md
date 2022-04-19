@@ -3,6 +3,8 @@ Wiren Board Python Style Guide
 
 За основу взят стиль, описанный в PEP8 (https://peps.python.org/pep-0008/).
 
+Для форматирования кода используется `black` (https://github.com/psf/black).
+
 Отличия от PEP8
 ---------------
 
@@ -134,12 +136,51 @@ $ python3 -m black --config "$PATH_TO_CODESTYLE/python/pyproject.toml" $(find . 
 $ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" $(find . -name '*.py')
 ```
 
-> :info: При изменении форматирования в репозитории может сильно испортиться вывод `git blame`.
+> :information_source: При изменении форматирования в репозитории может сильно испортиться вывод `git blame`.
 >
 > Начиная с версии 2.23, `git` умеет игнорировать изменения из таких коммитов.
 > Для этого при смене форматирования кода надо будет добавлять в репозиторий файл `.git-blame-ignore-revs`.
 >
 > Подробнее об этом можно почитать здесь: https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html
+
+Настройка IDE
+-------------
+
+### VSCode
+
+Устанавливаем пакеты `black` и `python3-isort`, в Debian/Ubuntu так:
+
+```console
+$ sudo apt install black python3-isort
+```
+
+Нужно скопировать файл `python/pyproject.toml` в директорию `~/.config/wb/` (не забыть создать её сначала).
+
+Далее настраиваем VSCode:
+
+ * устанавливаем расширение Python: `Ctrl-Shift-X` (открывает Marketplace), в строке поиска вводим `python`,
+   устанавливаем первое расширение из списка (от Microsoft);
+ * открываем редактор настроек VSCode: `Ctrl-Shift-P`, в поиске вводим `settings json`,
+   выбираем `Preferences: Open Settings (JSON)`;
+ * в открывшемся редакторе вводим (или добавляем опции в существующий объект):
+
+```json
+{
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--config=${env:HOME}/.config/wb/pyproject.toml"
+    ],
+    "python.sortImports.args": [
+        "--settings-file=${env:HOME}/.config/wb/pyproject.toml"
+    ],
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    }
+}
+```
 
 Changelog
 ---------
