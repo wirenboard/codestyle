@@ -85,10 +85,20 @@ def format_tuple(tuple: MyNamedTuple, delimiter: str = ", ") -> str:
 Проверка кода
 -------------
 
-Для автоматической проверки кода на CI используется flake8 и pylint. Файлы с настройками находятся
-в репозитории codestyle в директории `python`.
+Для автоматической проверки кода на CI используется `pylint`.
+
+Для проверки форматирования (и непосредственно форматирования) используются `black` и `isort`.
+`black` автоматически форматирует файл согласно своим внутренним правилам. `isort` группирует и
+сортирует список подключаемых модулей.
+
+Файлы с настройками находятся в репозитории codestyle в директории `python`.
 
 ### Запуск pylint
+
+> :warning: На момент подготовки версии 1.0 ошибки `pylint` не будут приводить к падению сборки по умолчанию.
+> Это связано с множеством ложных срабатываний, в частности, на тестах с использованием `pytest`.
+>
+> Тем не менее, проверки будут проводиться и будут собираться их логи для анализа в будущем.
 
 Установка pylint в Debian:
 
@@ -99,22 +109,37 @@ $ sudo apt install python3-pylint
 На CI запуск `pylint` для проверки репозитория производится так:
 
 ```console
-$ python3 -m pylint --rcfile "$PATH_TO_RCFILE" $(find . -name '*.py')
+$ python3 -m pylint --rcfile "$PATH_TO_CODESTYLE/python/pylintrc" $(find . -name '*.py')
 ```
 
-### Запуск flake8
+### Запуск black + isort
 
-Для проверки используется `flake8` и плагин `flake8-quotes`.
+Установка в Debian:
 
 ```console
-$ sudo apt install python3-flake8 python3-flake8-quotes
+$ sudo apt install black python3-isort
 ```
 
 На CI запуск производится так:
 
 ```console
-$ python3 -m flake8 --append-config "$PATH_TO_FLAKE8_FILE" $(find . -name '*.py')
+$ python3 -m black --config "$PATH_TO_CODESTYLE/python/pyproject.toml" --check --diff $(find . -name '*.py')
+$ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" --check --diff $(find . -name '*.py')
 ```
+
+Для автоматического форматирования кода в репозитории:
+
+```console
+$ python3 -m black --config "$PATH_TO_CODESTYLE/python/pyproject.toml" $(find . -name '*.py')
+$ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" $(find . -name '*.py')
+```
+
+> :info: При изменении форматирования в репозитории может сильно испортиться вывод `git blame`.
+>
+> Начиная с версии 2.23, `git` умеет игнорировать изменения из таких коммитов.
+> Для этого при смене форматирования кода надо будет добавлять в репозиторий файл `.git-blame-ignore-revs`.
+>
+> Подробнее об этом можно почитать здесь: https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html
 
 Changelog
 ---------
