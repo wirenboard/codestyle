@@ -84,6 +84,99 @@ def format_tuple(tuple: MyNamedTuple, delimiter: str = ", ") -> str:
     return str(tuple.arg_1) + delimiter + str(tuple.arg_2)
 ```
 
+### Длинные списки аргументов / элементов коллекций
+
+Black форматирует длинные перечисления аргументов функций или элементов коллекций примерно так:
+
+ * пока помещается в строку, положить в одну строку;
+ * если не поместилось, перенести начало списка на следующую строку;
+ * если и так не поместилось, писать каждый элемент списка на новой строке.
+
+Это может породить неоднородности при форматировании там, где раньше было хорошо. Например:
+
+```python3
+# до форматирования
+
+self.parser.add_argument('-m', '--model', dest='device_model', type=str,
+                         help='Модель устройства', required=True, choices=some_long_function_name_call())
+
+self.parser.add_argument('-r', '--hw-rev', dest='hw_rev', type=str,
+                         help='Версия платы', required=False, default=None)
+
+self.parser.add_argument('-p', '--batch', type=validate_batch,
+                         help='Номер партии', required=True)
+
+# после форматирования
+
+self.parser.add_argument(
+    "-m",
+    "--model",
+    dest="device_model",
+    type=str,
+    help="Модель устройства",
+    required=True,
+    choices=some_long_function_name_call(),
+)
+
+self.parser.add_argument(
+    "-r", "--hw-rev", dest="hw_rev", type=str, help="Версия платы", required=False, default=None
+)
+
+self.parser.add_argument("-p", "--batch", type=validate_batch, help="Номер партии", required=True)
+
+```
+
+Для того, чтобы бороться с такими ситуациями, рекомендуется добавлять после последнего аргумента запятую.
+В таком случае black всегда будет разбивать аргументы по строкам:
+
+```python3
+# до форматирования
+
+self.parser.add_argument('-m', '--model', dest='device_model', type=str,
+                         help='Модель устройства', required=True, choices=some_long_function_name_call(),)
+
+self.parser.add_argument('-r', '--hw-rev', dest='hw_rev', type=str,
+                         help='Версия платы', required=False, default=None,)
+
+self.parser.add_argument('-p', '--batch', type=validate_batch,
+                         help='Номер партии', required=True,)
+
+# после форматирования
+
+self.parser.add_argument(
+    "-m",
+    "--model",
+    dest="device_model",
+    type=str,
+    help="Модель устройства",
+    required=True,
+    choices=some_long_function_name_call(),
+)
+
+self.parser.add_argument(
+    "-r",
+    "--hw-rev",
+    dest="hw_rev",
+    type=str,
+    help="Версия платы",
+    required=False,
+    default=None,
+)
+
+self.parser.add_argument(
+    "-p",
+    "--batch",
+    type=validate_batch,
+    help="Номер партии",
+    required=True,
+)
+```
+
+То же самое рекомендуется делать с объявлениями списков и словарей.
+
+Приятным дополнением такого форматирования будет чуть более лаконичный diff при добавлении или перестановке
+элементов в списке.
+
 Проверка кода
 -------------
 
