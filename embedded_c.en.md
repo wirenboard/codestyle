@@ -84,3 +84,35 @@ Please consider the following alternatives to C preprocessor:
 * `if`s with condition evaluating to `true` at compile time insted of `#if`s
 * `const` variables instead of `#define`s
 * `static inline` functions instead of macros containing expressions.
+
+## Code Tips
+
+### Clearing Interrupt Flags
+
+It is important to NOT use RMW (read-modify-write) operation when clearing interrupt flag in the status register of peripherals. If status register was modified by peripheral during 'modify' operation, the new interrupt flag will be cleared together with the specified flag. As a result, new interrupt will be lost.
+
+Worst exapmle:
+
+```
+if (TIM1-SR & TIM_SR_CC1IF) {
+    TIM1-SR &= ~TIM_SR_CC1IF;
+}
+if (TIM1-SR & TIM_SR_CC2IF) {
+    TIM1-SR &= ~TIM_SR_CC2IF;
+}
+```
+
+If CC1 and CC2 events are near in time, one of them may be lost.
+
+Good example:
+
+```
+if (TIM1-SR & TIM_SR_CC1IF) {
+    TIM1-SR = ~TIM_SR_CC1IF;
+}
+if (TIM1-SR & TIM_SR_CC2IF) {
+    TIM1-SR = ~TIM_SR_CC2IF;
+}
+```
+
+This works because the bits in SR register are rc_w0 type and writing '1' does nothing.
