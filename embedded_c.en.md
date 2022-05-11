@@ -116,3 +116,140 @@ if (TIM1-SR & TIM_SR_CC2IF) {
 ```
 
 This works because the bits in SR register are rc_w0 type and writing '1' does nothing.
+
+## Кодировка
+Все файлы должны быть созданы в кодировке UTF-8.
+
+## Конец строки
+Конец файла всегда заканчивается переводом строки.
+
+## Выравнивание
+Пробелы
+
+1. Отступы 4 пробела между блоками - не использовать символ табуляции (TAB).
+2. Знаки бинарных операций отделяются от переменных пробелами, а знаки унарных операций - нет.
+```C
+a += b / c;
+c++;
+c &= ~d;
+```
+3. Пробелы между ``` if while do for``` и открывающей скобкой выражения.
+4. Аргументы функций перечисляются без пробелов вокруг скобок. Когда аргументов несколько - запятая сразу после аргумента, после запятой - пробел:
+```C
+task_schedule(adc_start_periodic_conversion_task_id, ADC_FILTRATION_PERIOD_MS);
+```
+5. Значения макросов, которые именуют константы, должны быть расположены от 40 до 60 знакоместа кратно 4 символам.
+Это нужно для того чтобы оставить место для макросов с длинными именами, которые могут быть потенциально добавлены позже в процессе разработки.
+
+Отступы и пробелы можно проверять, например, используя команду git diff. С помощью команды git diff master проверяется то что не изменено форматирование уже написанного ранее кода относительно мастер-ветки.
+
+Не использовать отступы для выравнивания
+
+Примеры плохого кода:
+```C
+static uint16_t task_next_free_id[TASK_TYPE_NUMBER] = {GET_TASK_ID(TASK_IMMEDIATE, 0),
+                                                       GET_TASK_ID(TASK_BACKGROUND, 0)};
+```
+
+```C
+    hlw8012_channels_state[channel].energy_factor = fix16_to_int(fix16_mul(fix16_div(fix16_from_int(hlw8012_channel_defs[channel].energy_unit_time),hlw8012_channels_state[channel].value_factor),F16(HLW8012_PULSE_COUNTING_FACTOR)));
+```
+
+```C
+    hlw8012_channels_state[channel].energy_factor = fix16_to_int(fix16_mul(fix16_div(fix16_from_int(hlw8012_channel_defs[channel].energy_unit_time),
+                                 hlw8012_channels_state[channel].value_factor),F16(HLW8012_PULSE_COUNTING_FACTOR)));
+```
+
+Примеры хорошего кода:
+
+```C
+static uint16_t task_next_free_id[TASK_TYPE_NUMBER] = {
+    GET_TASK_ID(TASK_IMMEDIATE, 0),
+    GET_TASK_ID(TASK_BACKGROUND, 0)
+};
+```
+
+```C
+    hlw8012_channels_state[channel].energy_factor = fix16_to_int(
+        fix16_mul(
+            fix16_div(
+                fix16_from_int(
+                    hlw8012_channel_defs[channel].energy_unit_time
+                ),
+                hlw8012_channels_state[channel].value_factor
+            ),
+            F16(HLW8012_PULSE_COUNTING_FACTOR)
+        )
+    );
+```
+
+Пример расстановки пробелов при обьявлении массива:
+```C
+static const uint8_t array_example[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE };
+```
+
+## Комментарии
+Комментарии после строки (короткий) или до строки (длинный):
+```C
+код         // короткий комментарий
+```
+или
+```C
+// длинный комментарий
+код
+```
+```//``` выравнивается кратно 4-м знакоместам (в редакторе vscode клавишей TAB в режиме 4 пробела вместо табуляции).
+Текст  от знака ```//``` отделяется пробелом.
+
+## Расстановка скобок
+Перенос скобки на следующую строку начала определения осуществляется в функциях, в остальном нет.
+Расстановка скобок:
+```C
+void function(void)
+{
+    if (a == b) {
+    // single str action use brackets
+    }
+
+    if (c == d) {
+    // do if equal
+    } else {
+    // do if not equal
+    }
+}
+
+void function(void)
+{
+    return;
+}
+
+```
+Скобки ставятся всегда, даже когда тело блока 1 строчка и даже когда его нет:
+```C
+while () {};
+
+if () {
+    return 0;
+} else {
+    return 1;
+}
+```
+
+Операции всегда выделяются скобками, даже если порядок действий очевиден:
+```
+(a || b && !c) -> (a || (b && (!c)))
+```C
+
+## Объявления
+В заголовочном (.h) файле должен быть только интерфейс к модулю т.е. обьявления функций, структур и макросы которые вызываются и используются в других модулях. Также в заголовочном файле могут помещаться ```static inline``` функции, если они например используются как заглушки.
+
+При переопределении или определении новых типов данных в конце названий добавляется ```_t```.
+Пример:
+
+```C
+typedef struct {
+    uint16_t address;
+    uint16_t data;
+} hold_reg_t;
+```
+Ранее допущенные ошибки форматирования исправляются в отдельной ветке с PR согласно кодстайлу.
