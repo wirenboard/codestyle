@@ -1,16 +1,35 @@
-# codestyle
-code style for Wiren Board software
+Wiren Board codestyle
+=====================
 
-Lintian
--------
+В этом репозитории собрана информация о том, как хорошо и правильно вести разработку
+в экосистеме Wiren Board.
 
-This directory contains wirenboard profile for lintian. It reconfigures some
-checks to run in Jenkins pipelines after package builds (e.g. to check
-changelog syntax and fail if there are syntax errors).
+Codestyle
+---------
 
-Currently this profile is used with lintian 2.5.50.4 from Debian stretch.
-It may require some modifications when lintian will update.
+  * [C++](./C++.ru.md) ([en](./C++.en.md))
+  * [Python](./python.ru.md)
+  * [Embedded C (en)](./embedded_c.en.md)
 
-Copy lintian directory into $HOME/.lintian and run lintian with parameters:
+Гайдлайны
+---------
 
-  $ lintian --include-dir=$HOME/.lintian --profile=wirenboard ...
+### Общие
+
+  * [Workflow](./workflow.md) - как пользоваться Git и трекером задач
+  * [Tools](./tools.md) - полезные утилиты на все случаи жизни
+
+### Разработка под Linux
+
+  * [Service Configs](./guidelines/service-configs.md) - как правильно сделать файл конфигурации для нового сервиса
+  * [Lintian](./lintian.md) - конфигурация утилиты для проверки оформления deb-пакетов
+
+Ссылки
+------
+
+В этот раздел можно добавлять ссылки на всё, что может пригодиться в работе.
+
+  * [awesome-lists](https://awesome.re/) - списки классных проектов на любой случай жизни
+    * [awesome-cpp](https://github.com/fffaraz/awesome-cpp) - классные проекты вокруг С++
+  * [refactoring.guru](https://refactoring.guru/) - наглядное пособие по рефакторингу и архитектуре приложений
+
