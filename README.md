@@ -32,4 +32,4 @@ Codestyle
   * [awesome-lists](https://awesome.re/) - списки классных проектов на любой случай жизни
     * [awesome-cpp](https://github.com/fffaraz/awesome-cpp) - классные проекты вокруг С++
   * [refactoring.guru](https://refactoring.guru/) - наглядное пособие по рефакторингу и архитектуре приложений
-
+  * [CppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) - гайдлайны по написанию кода на С++ от авторов языка
