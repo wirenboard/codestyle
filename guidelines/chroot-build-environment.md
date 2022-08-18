@@ -60,11 +60,7 @@ rm -f /dev/null; mknod -m 666 /dev/null c 1 3
 
 # What ports, IPs and protocols we listen for
 Port 2234
-# Use these options to restrict which interfaces/protocols sshd will bind to
-#ListenAddress ::
-#ListenAddress 0.0.0.0
-Protocol 2
-# HostKeys for protocol version 2
+...
 ```
 
 Генерируем ключи для ssh сервера:
