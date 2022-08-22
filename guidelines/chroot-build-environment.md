@@ -47,12 +47,6 @@ apt install -y googletest libgtest-dev libgmock-dev
 apt install -y ssh
 ```
 
-Делаем из /dev/null символьное устройство:
-
-```shell
-rm -f /dev/null; mknod -m 666 /dev/null c 1 3
-```
-
 В файле настройки ssh сервера `/etc/ssh/sshd_config` меняем порт:
 ```
 # Package generated configuration file
