@@ -14,6 +14,15 @@ sudo apt install -y u-boot-tools qemu-user-static binfmt-support
 dumpimage -T flat_dt -p 3 -o rootfs.tar.gz <image>.fit
 ```
 
+##### Примечание:
+
+Извлечение работaет с версиями dumpimage
+* 2021.01+dfsg-5
+* 2021.01+dfsg-3ubuntu0~20.04.4
+
+Не работает с версией
+* 2022.01+dfsg-2ubuntu2
+
 Распаковываем rootfs в директорию:
 ```shell
 mkdir rootfs
