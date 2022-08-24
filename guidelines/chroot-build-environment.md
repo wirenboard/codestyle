@@ -17,7 +17,7 @@ dumpimage -T flat_dt -p 3 -o rootfs.tar.gz <image>.fit
 Распаковываем rootfs в директорию:
 ```shell
 mkdir rootfs
-tar zxvf rootfs.tar.gz -C rootfs/
+sudo tar zxvf rootfs.tar.gz -C rootfs/
 ```
 
 Запускаем chroot окружение:
