@@ -16,6 +16,7 @@ dumpimage -T flat_dt -p 3 -o rootfs.tar.gz <image>.fit
 
 ##### Примечание:
 
+Утилита dumpimage входит в пакет u-boot-tools.
 Извлечение работaет с версиями dumpimage
 * 2021.01+dfsg-5
 * 2021.01+dfsg-3ubuntu0~20.04.4
