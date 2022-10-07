@@ -20,7 +20,7 @@ Codestyle
   * [Tools](./tools.md) - полезные утилиты на все случаи жизни
 
 ### Разработка под Linux
-
+  * [WB services](./guidelines/services.md) - настройка WB сервисов
   * [Service Configs](./guidelines/service-configs.md) - как правильно сделать файл конфигурации для нового сервиса
   * [Lintian](./lintian.md) - конфигурация утилиты для проверки оформления deb-пакетов
 
