@@ -20,7 +20,7 @@ https://freedesktop.org/software/systemd/man/systemd.exec.html#Process%20Exit%20
 ```bash
 [Service]
 ...
-Restart=always
+Restart=on-failure
 RestartSec=<Время ожидания перед перезапуском службы, сек>
 ...
 ```
