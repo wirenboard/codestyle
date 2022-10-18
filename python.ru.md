@@ -247,6 +247,8 @@ $ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" $(
 $ sudo apt install black python3-isort
 ```
 
+Для корректной работы `black` в Ubuntu 20.04 надо поставить `python3-click` версии 8.
+
 Нужно скопировать файл `python/pyproject.toml` в директорию `~/.config/wb/` (не забыть создать её сначала).
 
 Далее настраиваем VSCode:
@@ -274,6 +276,8 @@ $ sudo apt install black python3-isort
     }
 }
 ```
+
+Файл `python/pylintrc` нужно скопировать в директорию проекта под именем `.pylintrc`.
 
 Changelog
 ---------
