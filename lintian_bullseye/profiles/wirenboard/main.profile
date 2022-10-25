@@ -1,4 +1,4 @@
-Profile: wirenboard_bullseye/main
+Profile: wirenboard/main
 Extends: debian/main
 
 Tags: syntax-error-in-debian-changelog
