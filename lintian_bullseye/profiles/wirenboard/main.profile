@@ -1,8 +1,11 @@
 Profile: wirenboard/main
 Extends: debian/main
 
+
 Tags: syntax-error-in-debian-changelog
 Severity: error
+Overridable: true
 
 Tags: bad-distribution-in-changes-file
-Severity: normal
+Severity: info
+Overridable: true
