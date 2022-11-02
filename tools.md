@@ -18,3 +18,7 @@
   * [gitk](https://git-scm.com/docs/gitk/) - рисует дерево коммитов в графическом виде
     * Альтернатива на Qt - [qgit](https://github.com/tibirna/qgit)
 
+Окружение для разработки
+------------------------
+
+ * [direnv](https://direnv.net/) - создаёт изолированные окружения под разные проекты (подробнее тут https://github.com/wirenboard/wb-nixpkgs#development)
