@@ -61,7 +61,7 @@ import myDirective from 'myDirective';
 angular.module("MyApp", []).directive("myDirective", myDirective);
 ```
 
-Теперь директиву можно использовать в шаблоне, где `model` - [модель данных](https://docs.angularjs.org/guide/concepts#model) терминах AngularJS.
+Теперь директиву можно использовать в шаблоне, где `model` - [модель данных](https://docs.angularjs.org/guide/concepts#model) в терминах AngularJS.
 ```html
 <my-directive data="model"></my-directive>
 ```
