@@ -249,7 +249,7 @@ $ sudo apt install black python3-isort
 
 Для корректной работы `black` в Ubuntu 20.04 надо поставить `python3-click` версии 8.
 
-Нужно скопировать файл `python/pyproject.toml` в директорию `~/.config/wb/` (не забыть создать её сначала).
+Если необходимо использовать одни и те же настройки во всех проектах, нужно скопировать файлы `python/pyproject.toml` и `python/pylintrc` в директорию `~/.config/wb/` (не забыть создать её сначала).
 
 Далее настраиваем VSCode:
 
@@ -257,7 +257,8 @@ $ sudo apt install black python3-isort
    устанавливаем первое расширение из списка (от Microsoft);
  * открываем редактор настроек VSCode: `Ctrl-Shift-P`, в поиске вводим `settings json`,
    выбираем `Preferences: Open Settings (JSON)`;
- * в открывшемся редакторе вводим (или добавляем опции в существующий объект):
+ * в открывшемся редакторе вводим (или добавляем опции в существующий объект);
+ * если файлы настроек расположены не в `~/.config/wb/`, то заменяем `${env:HOME}/.config/wb/` на корректный путь:
 
 ```json
 {
@@ -273,11 +274,14 @@ $ sudo apt install black python3-isort
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         }
-    }
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--rcfile",
+        "${env:HOME}/.config/wb/pylintrc"
+    ]
 }
 ```
-
-Файл `python/pylintrc` нужно скопировать в директорию проекта под именем `.pylintrc`.
 
 Changelog
 ---------
