@@ -24,6 +24,9 @@ Codestyle
   * [Service Configs](./guidelines/service-configs.md) - как правильно сделать файл конфигурации для нового сервиса
   * [Lintian](./lintian.md) - конфигурация утилиты для проверки оформления deb-пакетов
 
+### JavaScript
+  * [React in AngularJS](./guidelines/react-in-angularjs.md) - интеграция компонентов React в приложение на AngularJS
+
 Ссылки
 ------
 
