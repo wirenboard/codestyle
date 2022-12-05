@@ -82,11 +82,12 @@ _Следует писать сообщения коммитам на англи
 -------------------------------------
 
   1. Добавить `Description`
-  2. Выключить `Packages` и `Environments` с главной страницы (не используем)
-  3. Выключиить `Wikis` и `Projects` в Settings (не используем)
-  4. Добавить `Branch protection rules` для `main` бранча с включенным `Require a pull request before merging`
-  5. Добавить в коллабораторы `@wirenboard/developers` команду c доступом `Admin`
-  6. Добавить `README.md` и `LICENSE`
+  2. В `Topics` добавить `wb-rules`, если репозиторий будет содержать правила для wb-rules
+  3. Выключить `Packages` и `Environments` с главной страницы (не используем)
+  4. Выключиить `Wikis` и `Projects` в Settings (не используем)
+  5. Добавить `Branch protection rules` для `main` бранча с включенным `Require a pull request before merging`
+  6. Добавить в коллабораторы `@wirenboard/developers` команду c доступом `Admin`
+  7. Добавить `README.md` и `LICENSE`
 
 Работа с PR
 -----------
