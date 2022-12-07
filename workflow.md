@@ -78,6 +78,17 @@ _Следует писать сообщения коммитам на англи
 
 Нельзя смешивать в одном PR изменения в функционале и форматировании кода. Их стоит оформлять в виде нескольких отдельных последовательных PR.
 
+Создание нового репозитория на GitHub
+-------------------------------------
+
+  1. Добавить `Description`
+  2. В `Topics` добавить `wb-rules`, если репозиторий будет содержать правила для wb-rules
+  3. Выключить `Packages` и `Environments` с главной страницы (не используем)
+  4. Выключить `Wikis` и `Projects` в Settings (не используем)
+  5. Добавить `Branch protection rules` для `main` бранча с включенным `Require a pull request before merging`
+  6. Добавить команду `@wirenboard/developers` в коллабораторы c `Maintain` доступом
+  7. Добавить `README.md` и `LICENSE` (за основу можно взять [LICENSE](https://github.com/wirenboard/wb-mqtt-serial/blob/master/LICENSE))
+
 Работа с PR
 -----------
 
