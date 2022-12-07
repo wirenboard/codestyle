@@ -17,7 +17,7 @@
   * [gitk](https://git-scm.com/docs/gitk/) - рисует дерево коммитов в графическом виде
     * Альтернатива на Qt - [qgit](https://github.com/tibirna/qgit)
   * [gh](https://cli.github.com/) - работа с GitHub через консоль
-    * Список всех открытых PR по всем WB репам: `gh search prs --owner=wirenboard --state=open`
+    * Список всех открытых PR по всем WB репам: `gh search prs --owner=wirenboard --state=open --sort created -L 100`
     * Список PR для текущей репы: `gh pr list`
     * Посмотреть PR: `gh pr diff <number>`
     * Оставить ревью: `gh pr review <number>`
