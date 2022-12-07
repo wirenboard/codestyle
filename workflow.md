@@ -86,7 +86,7 @@ _Следует писать сообщения коммитам на англи
   3. Выключить `Packages` и `Environments` с главной страницы (не используем)
   4. Выключить `Wikis` и `Projects` в Settings (не используем)
   5. Добавить `Branch protection rules` для `main` бранча с включенным `Require a pull request before merging`
-  6. Добавить команду `@wirenboard/developers` в коллабораторы c `Admin` доступом
+  6. Добавить команду `@wirenboard/developers` в коллабораторы c `Maintain` доступом
   7. Добавить `README.md` и `LICENSE`
 
 Работа с PR
