@@ -24,6 +24,26 @@
     * Смержить (сквош) и удалить бранч: `gh pr merge <number> -s -d`
     * Список всех репозиториев: `gh repo list -L 200 --json name wirenboard | jq -r '.[].name'`
 
+Работа с Jenkins
+----------------
+
+ * [jenkins-cli](https://github.com/jenkins-zh/jenkins-cli) - работа с Jenkins через консоль
+   * В разделе Configure нужно создать API Token
+   * Создать конфиг:
+```sh
+cat > ~/.jenkins-cli.yaml << EOF
+current: wirenboard
+jenkins_servers:
+- name: wirenboard
+  url: https://jenkins.wirenboard.com/job/wirenboard
+  username: <username>
+  token: <token>
+  insecureSkipVerify: true
+EOF
+```
+   * Посмотреть логи: `jcli job log wb-mqtt-serial/job/master`
+   * Триггернуть сборку: `jcli job build wb-mqtt-serial/job/master`
+
 Окружение для разработки
 ------------------------
 

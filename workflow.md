@@ -81,10 +81,10 @@ _Следует писать сообщения коммитам на англи
 Создание нового репозитория на GitHub
 -------------------------------------
 
-  1. Добавить `Description`
+  1. Добавить `Description` (например из `debian/control`) и `Website` (например ссылка на https://wirenboard.com/wiki/ при наличии страницы)
   2. В `Topics` добавить `wb-rules`, если репозиторий будет содержать правила для wb-rules
   3. Выключить `Packages` и `Environments` с главной страницы (не используем)
-  4. Выключить `Wikis` и `Projects` в Settings (не используем)
+  4. Выключить `Wikis`, `Projects` и `Actions` в Settings (не используем)
   5. Добавить `Branch protection rules` для `main` бранча с включенным `Require a pull request before merging`
   6. Добавить команду `@wirenboard/developers` в коллабораторы c `Maintain` доступом
   7. Добавить `README.md` и `LICENSE` (за основу можно взять [LICENSE](https://github.com/wirenboard/wb-mqtt-serial/blob/master/LICENSE))
