@@ -10,7 +10,7 @@ Codestyle
   * [C++](./C++.ru.md) ([en](./C++.en.md))
   * [Python](./python.ru.md)
   * [Embedded C (en)](./embedded_c.en.md)
-  * [Javascript](https://standardjs.com/)
+  * [Javascript](https://github.com/airbnb/javascript)
 
 Гайдлайны
 ---------
