@@ -18,11 +18,22 @@
     * Альтернатива на Qt - [qgit](https://github.com/tibirna/qgit)
   * [gh](https://cli.github.com/) - работа с GitHub через консоль
     * Список всех открытых PR по всем WB репам: `gh search prs --owner=wirenboard --state=open --sort created -L 100`
+    * Список всех issues по всем WB репам: `gh search issues --owner=wirenboard --state=open --sort created -L 100`
     * Список PR для текущей репы: `gh pr list`
     * Посмотреть PR: `gh pr diff <number>`
     * Оставить ревью: `gh pr review <number>`
     * Смержить (сквош) и удалить бранч: `gh pr merge <number> -s -d`
     * Список всех репозиториев: `gh repo list -L 200 --json name wirenboard | jq -r '.[].name'`
+  * [mu-repo](https://fabioz.github.io/mu-repo/) - работа с множеством git репозиториев (à la монорепа):
+```sh
+gh repo list -L 200 --json name wirenboard | jq -r '.[].name' | \
+  xargs -P1 -I % sh -c 'gh repo clone wirenboard/% -- --recurse-submodules'
+mu register --all
+...
+ulimit -n 10240 # required on macOS
+mu fetch --all --prune
+mu pull
+```
 
 Работа с Jenkins
 ----------------
