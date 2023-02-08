@@ -57,6 +57,15 @@ EOF
    * Триггернуть сборку: `jcli job build wb-mqtt-serial/job/master`
    * Скачать deb пакет последней сборки для текущей ветки: `git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c "jcli job artifact download $(basename $PWD)/job/{}"`
 
+Также можно добавить алиасы в git конфиг:
+```
+$ cat ~/.config/git/config
+[alias]
+	jl = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job log $(basename $PWD)/job/{}\""
+	jb = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job build $(basename $PWD)/job/{}\""
+	jd = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job artifact download $(basename $PWD)/job/{}\""
+```
+
 Окружение для разработки
 ------------------------
 
