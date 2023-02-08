@@ -24,6 +24,7 @@
     * Оставить ревью: `gh pr review <number>`
     * Смержить (сквош) и удалить бранч: `gh pr merge <number> -s -d`
     * Список всех репозиториев: `gh repo list -L 200 --json name wirenboard | jq -r '.[].name'`
+    * Основная ветка репозитория: `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`
   * [mu-repo](https://fabioz.github.io/mu-repo/) - работа с множеством git репозиториев (à la монорепа):
 ```sh
 gh repo list -L 200 --json name wirenboard | jq -r '.[].name' | \
@@ -54,6 +55,16 @@ EOF
 ```
    * Посмотреть логи: `jcli job log wb-mqtt-serial/job/master`
    * Триггернуть сборку: `jcli job build wb-mqtt-serial/job/master`
+   * Скачать deb пакет последней сборки для текущей ветки: `git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c "jcli job artifact download $(basename $PWD)/job/{}"`
+
+Также можно добавить алиасы в git конфиг:
+```
+$ cat ~/.config/git/config
+[alias]
+	jl = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job log $(basename $PWD)/job/{}\""
+	jb = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job build $(basename $PWD)/job/{}\""
+	jd = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job artifact download $(basename $PWD)/job/{}\""
+```
 
 Окружение для разработки
 ------------------------

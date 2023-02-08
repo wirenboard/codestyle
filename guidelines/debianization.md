@@ -106,7 +106,7 @@ Jenkins собирает проект при:
 
 [wb-mcu-fw-updater](https://github.com/wirenboard/wb-mcu-fw-updater) - состоит из "бинарника" и библиотеки. Из одного source-пакета получается 2 binary-пакета. Собирается pubuild'ом вместо Make; в rules прописан вызов pybuild. _Каноничный способ дебианизации python-проекта_.
 
-[wb-demokit-configs](https://github.com/wirenboard/wb-demo-kit-configs) - нужно положить на контроллер некоторые файлы (с заменой существующих!). В этом нам помогают .displace файлы.
+[wb-demo-kit-configs](https://github.com/wirenboard/wb-demo-kit-configs) - нужно положить на контроллер некоторые файлы (с заменой существующих!). В этом нам помогают .displace файлы.
 
 [wb-mcu-fw-flasher](https://github.com/wirenboard/wb-mcu-fw-flasher) - классическая сборка Makefile'ом; в rules просто вызывается make. Прописанное в .dirs очищается при удалении пакета.
 
