@@ -46,7 +46,9 @@
     Если да, то внести файл туда, дописав в комментариях, что его нельзя редактировать.
     Этот вариант чуть хуже предыдущих, потому что файлы в `/etc`
     считаются `conffile`-ами, потому не удаляются без purge и не меняются после
-    редактирования пользователем. В общем, лучше не трогать.
+    редактирования пользователем. Чтобы файл не считался `conffile`, можно его
+    создать из `postinst`-скрипта (например, копированием из `/usr/share`), но надо
+    помнить, что удалять его тоже надо будет руками.
     Пример - dnsmasq.
  4. Можно ли добавить что-то в `/etc/default`. Сработает только в случае, если
     раньше не было соответствующего файла в `/etc/default` (если был, то
@@ -66,3 +68,6 @@
 
  * [dpkg-maintscript-helper](https://manpages.debian.org/unstable/dpkg/dpkg-maintscript-helper.1.en.html) -
    как переименовать или удалить старый конфигурационный файл при обновлении пакетов
+ * [file-in-etc-not-marked-as-conffile](https://lintian.debian.org/tags/file-in-etc-not-marked-as-conffile) -
+   так lintian ругается на не-conffile в `/etc`
+ * [Debian policy about configs](https://www.debian.org/doc/debian-policy/ch-files.html#configuration-files)
