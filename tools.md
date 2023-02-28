@@ -70,3 +70,9 @@ $ cat ~/.config/git/config
 ------------------------
 
  * [direnv](https://direnv.net/) - создаёт изолированные окружения под разные проекты (подробнее тут https://github.com/wirenboard/wb-nixpkgs#development)
+
+MQTT
+----
+
+ * [MQTT-Explorer](https://github.com/thomasnordquist/MQTT-Explorer) - GUI клиент
+ * [mqttui](https://github.com/EdJoPaTo/mqttui) - TUI клиент
