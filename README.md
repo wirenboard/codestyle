@@ -24,6 +24,7 @@ Codestyle
   * [WB services](./guidelines/services.md) - настройка WB сервисов
   * [Service Configs](./guidelines/service-configs.md) - как правильно сделать файл конфигурации для нового сервиса
   * [Lintian](./lintian.md) - конфигурация утилиты для проверки оформления deb-пакетов
+  * [Saved configs](./guidelines/saved-configs.md) - как правильно поменять умолчания в конфигурационных файлах с обновлением
 
 ### JavaScript
   * [React in AngularJS](./guidelines/react-in-angularjs.md) - интеграция компонентов React в приложение на AngularJS
