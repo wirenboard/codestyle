@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=`find . -name "*.py"; for file in \`find . -type f ! -name "*.*"\`; do mime=\`file -b --mime-type $file\`; if [ $mime == 'text/x-python' ] || [ $mime == 'text/x-script.python' ]; then echo $file; fi; done `
+files=`find . -name "*.py"; for file in \`find . -type f ! -name "*.*"\`; do mime=\`file -b --mime-type "$file"\`; if [ "$mime" == 'text/x-python' ] || [ "$mime" == 'text/x-script.python' ]; then echo "$file"; fi; done `
 
 if [ "$WB_PYTHON_FILES_EXCLUDE" ]; then
     for file in `echo "$files" | grep -qv "$WB_PYTHON_FILES_EXCLUDE"` ; do
