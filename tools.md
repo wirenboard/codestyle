@@ -66,6 +66,83 @@ $ cat ~/.config/git/config
 	jd = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job artifact download $(basename $PWD)/job/{}\""
 ```
 
+### Исправление постоянных 404 при переходе по ссылкам
+
+Это обычно происходит в пайплайнах, которые собирают ветки с `/` в имени
+(все наши `feature/12345-foo` и `tmp/me/fixing`).
+
+Это происходит из-за бага в Jenkins, который не чинят уже несколько лет:
+https://issues.jenkins.io/browse/JENKINS-54044
+
+На месте проблема решается заменой всех `%2F` в пути на `%252F`.
+Чтобы не делать это каждый раз вручную, можно использовать плагин Redirector
+(доступен для [Firefox](https://addons.mozilla.org/ru/firefox/addon/redirector/),
+Chrome и Opera).
+
+Вот набор правил, которые исправляют проблему в самых частых случаях
+(экспортировано из Redirector для Firefox):
+
+```json
+{
+    "createdBy": "Redirector v3.5.3",
+    "createdAt": "2023-04-07T18:54:10.163Z",
+    "redirects": [
+        {
+            "description": "Fix Jenkins paths with %2F 3 times",
+            "exampleUrl": "https://jenkins.wirenboard.com/job/wirenboard/job/wb-mqtt-serial/job/release%2Fwb-2304%2Fstretch%2Ffoobar/",
+            "exampleResult": "https://jenkins.wirenboard.com/job/wirenboard/job/wb-mqtt-serial/job/release%252Fwb-2304%252Fstretch%252Ffoobar/",
+            "error": null,
+            "includePattern": "(https://jenkins.wirenboard.com/.*)%2F(.*)%2F(.*)%2F(.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "$1%252F$2%252F$3%252F$4",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Fix Jenkins paths with %2F 2 times",
+            "exampleUrl": "https://jenkins.wirenboard.com/job/wirenboard/job/wb-mqtt-serial/job/release%2Fwb-2304%2Fstretch/",
+            "exampleResult": "https://jenkins.wirenboard.com/job/wirenboard/job/wb-mqtt-serial/job/release%252Fwb-2304%252Fstretch/",
+            "error": null,
+            "includePattern": "(https://jenkins.wirenboard.com/.*)%2F(.*)%2F(.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "$1%252F$2%252F$3",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Fix Jenkins paths with %2F 1 times",
+            "exampleUrl": "https://jenkins.wirenboard.com/job/wirenboard/job/wb-mqtt-serial/job/release%2Fwb-2304/",
+            "exampleResult": "https://jenkins.wirenboard.com/job/wirenboard/job/wb-mqtt-serial/job/release%2Fwb-2304/",
+            "error": null,
+            "includePattern": "(https://jenkins.wirenboard.com/.*)%2F(.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "$1%252F$2",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        }
+    ]
+}
+```
+
+
 Окружение для разработки
 ------------------------
 
