@@ -22,6 +22,8 @@ $ npm install --save-dev eslint eslint-config-airbnb eslint-plugin-import eslint
 .prettierrc
 ```
 
+Для wb-rules правил используйте `js/eslintrc-es5`, так как правила пишутся на ECMAScript 5.
+
 В раздел `scripts` файла `package.json` можно добавить строку
 
 ```js

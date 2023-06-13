@@ -1,0 +1,39 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "script",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": [["@babel/preset-env", { "targets": "defaults" }], "@babel/preset-react"]
+    }
+  },
+  "rules": {
+    "strict": 0
+  },
+  "extends": ["eslint:recommended", "airbnb"],
+  "globals": {
+    "format": "readonly",
+    "log": "readonly",
+    "debug": "readonly",
+    "publish": "readonly",
+    "_wbDevObject": "readonly",
+    "_wbCellObject": "readonly",
+    "_wbStartTimer": "readonly",
+    "_wbStopTimer": "readonly",
+    "_wbCheckCurrentTimer": "readonly",
+    "_wbSpawn": "readonly",
+    "_wbDefineRule": "readonly",
+    "runRules": "readonly",
+    "readConfig": "readonly",
+    "_wbPersistentSet": "readonly",
+    "_wbPersistentGet": "readonly",
+    "disableRule": "readonly",
+    "enableRule": "readonly",
+    "runRule": "readonly",
+    "defineVirtualDevice": "readonly",
+    "getDevice": "readonly",
+    "getControl": "readonly",
+    "_wbPersistentName": "readonly",
+    "trackMqtt": "readonly"
+  }
+}
