@@ -287,6 +287,7 @@ $ sudo apt install black python3-isort
 -------------
 
   * [Реализация сервисов на Python](guidelines/service-python.md)
+  * [Шаблон setup.py](python/setup.py)
 
 Changelog
 ---------
