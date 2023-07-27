@@ -25,6 +25,17 @@
     * Смержить (сквош) и удалить бранч: `gh pr merge <number> -s -d`
     * Список всех репозиториев: `gh repo list -L 200 --json name wirenboard | jq -r '.[].name'`
     * Основная ветка репозитория: `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`
+  * [gh-dash](https://github.com/dlvhdr/gh-dash) - CLI дашборд для GitHub, пример конфига:
+```sh
+cat ~/.config/gh-dash/config.yml
+prSections:
+  - title: WB
+    filters: is:open is:pr user:wirenboard -repo:wirenboard/linux
+  - title: My Pull Requests
+    filters: is:open author:@me
+repoPaths:
+  wirenboard/*: ~/Projects/wirenboard/*
+```
   * [mu-repo](https://fabioz.github.io/mu-repo/) - работа с множеством git репозиториев (à la монорепа):
 ```sh
 gh repo list -L 200 --json name wirenboard | jq -r '.[].name' | \
@@ -58,12 +69,18 @@ EOF
    * Скачать deb пакет последней сборки для текущей ветки: `git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c "jcli job artifact download $(basename $PWD)/job/{}"`
 
 Также можно добавить алиасы в git конфиг:
-```
+```sh
 $ cat ~/.config/git/config
 [alias]
 	jl = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job log $(basename $PWD)/job/{}\""
 	jb = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job build $(basename $PWD)/job/{}\""
 	jd = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job artifact download $(basename $PWD)/job/{}\""
+```
+
+Еще примеры:
+ * Получить список всех предупреждений от lintian по всем пакетам (предполагается что в текущей директории склонированы все WB репозитории):
+```sh
+find . -type d -exec test -f '{}'/Jenkinsfile -a -d '{}'/debian \; -print | xargs -I {} git -C {} jl | grep W:
 ```
 
 ### Исправление постоянных 404 при переходе по ссылкам
