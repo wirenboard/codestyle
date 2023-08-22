@@ -1,1 +1,1 @@
-archiveArtifacts()
+archiveProjectFiles()
