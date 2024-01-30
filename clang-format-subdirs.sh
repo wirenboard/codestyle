@@ -8,6 +8,8 @@ fi
 
 FAIL=0
 
+clang-format --version
+
 for dir in "$@"; do
     find ${dir} -iname '*.h' -o -iname '*.cpp' | xargs clang-format -n --Werror -i || FAIL=1
 done

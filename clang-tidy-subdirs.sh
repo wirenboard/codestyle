@@ -8,6 +8,8 @@ fi
 
 FAIL=0
 
+clang-tidy --version
+
 for dir in "$@"; do
     find ${dir} -iname '*.h' -o -iname '*.cpp' | xargs clang-tidy -p . || FAIL=1
 done
