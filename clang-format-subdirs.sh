@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ $# -eq 0 ]; then
     echo "Apply dry run of clang-format to all *.h and *.cpp files in specified directories recursively."
