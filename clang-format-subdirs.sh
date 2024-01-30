@@ -11,7 +11,7 @@ FAIL=0
 clang-format --version
 
 for dir in "$@"; do
-    find ${dir} -iname '*.h' -o -iname '*.cpp' | xargs clang-format -n --Werror -i || FAIL=1
+    find "${dir}" -iname '*.h' -o -iname '*.cpp' -type f -print0 | xargs -0 clang-format -n --Werror -i || FAIL=1
 done
 
 exit $FAIL
