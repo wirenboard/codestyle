@@ -11,6 +11,7 @@ Codestyle
   * [Python](./python.ru.md)
   * [Embedded C (en)](./embedded_c.en.md)
   * [Javascript](https://github.com/airbnb/javascript)
+  * [Go (en)](./go.en.md)
 
 Гайдлайны
 ---------
