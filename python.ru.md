@@ -188,45 +188,50 @@ self.parser.add_argument(
 
 Файлы с настройками находятся в репозитории codestyle в директории `python`.
 
-### Запуск pylint
+Что именно происходит на CI - можно посмотреть [здесь](https://github.com/wirenboard/jenkins-pipeline-lib/blob/master/vars/wb.groovy) (поискав по ```runPythonChecks```; все скрипты берутся из codestyle).
+
+
+### Установка codestyle-тулзов
+На Дженкинсе и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем через virtualenv. **Не  использовать** пакетный менеджер системы во избежание бардака!
+
+#### Linux (и Jenkins)
+Скачать и выполнить [скрипт](https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-tools/python/deploy_tools.sh) TODO: поправить ссылку
+
+На Jenkins можно
+```console
+$ DEPLOY_DIR=рабочая_директория_проекта ./deploy_tools.sh
+```
+
+#### Windows
+___TODO: расписать полный боли и страданий путь любителей виндавса___
+
+### Запуск руками (в директории проекта)
 
 > :warning: На момент подготовки версии 1.0 ошибки `pylint` не будут приводить к падению сборки по умолчанию.
 > Это связано с множеством ложных срабатываний, в частности, на тестах с использованием `pytest`.
 >
 > Тем не менее, проверки будут проводиться и будут собираться их логи для анализа в будущем.
 
-Установка pylint в Debian:
-
+**Активировать venv!**
 ```console
-$ sudo apt install python3-pylint
+$ source ~/.config/wb/codestyle_venv/bin/activate
 ```
 
-На CI запуск `pylint` для проверки репозитория производится так:
-
+#### pylint
 ```console
-$ python3 -m pylint --rcfile "$PATH_TO_CODESTYLE/python/pylintrc" $(find . -name '*.py')
+$ python3 -m pylint --rcfile "/home/$USER/.config/wb/pylintrc" $(find . -name '*.py')
 ```
 
-### Запуск black + isort
-
-Установка в Debian:
-
+#### black + isort (dry-run)
 ```console
-$ sudo apt install black python3-isort
+$ python3 -m black --config "/home/$USER/.config/wb/pyproject.toml" --check --diff $(find . -name '*.py')
+$ cp /home/$USER/.config/wb/pyproject.toml tmp_pyproject.toml; python3 -m isort --settings-file tmp_pyproject.toml --check --diff $(find . -name '*.py')
 ```
 
-На CI запуск производится так:
-
+#### black + isort (автоформатирование)
 ```console
-$ python3 -m black --config "$PATH_TO_CODESTYLE/python/pyproject.toml" --check --diff $(find . -name '*.py')
-$ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" --check --diff $(find . -name '*.py')
-```
-
-Для автоматического форматирования кода в репозитории:
-
-```console
-$ python3 -m black --config "$PATH_TO_CODESTYLE/python/pyproject.toml" $(find . -name '*.py')
-$ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" $(find . -name '*.py')
+$ python3 -m black --config "/home/$USER/.config/wb/pyproject.toml" $(find . -name '*.py')
+$ cp /home/$USER/.config/wb/pyproject.toml tmp_pyproject.toml; python3 -m isort --settings-file tmp_pyproject.toml $(find . -name '*.py')
 ```
 
 > :information_source: При изменении форматирования в репозитории может сильно испортиться вывод `git blame`.
@@ -236,25 +241,21 @@ $ python3 -m isort --settings-file "$PATH_TO_CODESTYLE/python/pyproject.toml" $(
 >
 > Подробнее об этом можно почитать здесь: https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html
 
-Настройка IDE
+**по завершению - выйти из venv**
+```console
+$ deactivate
+```
+
+Автоформатирование в IDE
 -------------
 
 ### VSCode
 
-Устанавливаем пакеты `black` и `python3-isort`, в Debian/Ubuntu так:
-
-```console
-$ sudo apt install black python3-isort
-```
-
-Для корректной работы `black` в Ubuntu 20.04 надо поставить `python3-click` версии 8.
-
-Если необходимо использовать одни и те же настройки во всех проектах, нужно скопировать файлы `python/pyproject.toml` и `python/pylintrc` в директорию `~/.config/wb/` (не забыть создать её сначала).
-
-Далее настраиваем VSCode:
+Один раз настраиваем VSCode:
 
  * устанавливаем расширение Python: `Ctrl-Shift-X` (открывает Marketplace), в строке поиска вводим `python`,
    устанавливаем первое расширение из списка (от Microsoft);
+* аналогично устанавливаем расширения black, isort, pylint (все от Microsoft)
  * открываем редактор настроек VSCode: `Ctrl-Shift-P`, в поиске вводим `settings json`,
    выбираем `Preferences: Open Settings (JSON)`;
  * в открывшемся редакторе вводим (или добавляем опции в существующий объект);
@@ -262,24 +263,27 @@ $ sudo apt install black python3-isort
 
 ```json
 {
-    "editor.formatOnSave": true,
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
+    "python.defaultInterpreterPath": "${env:HOME}/.config/wb/codestyle_venv/bin/python3",
+    "black-formatter.args": [
         "--config=${env:HOME}/.config/wb/pyproject.toml"
     ],
-    "python.sortImports.args": [
-        "--settings-file=${env:HOME}/.config/wb/pyproject.toml"
+    "isort.check": true,
+    "isort.args": [
+        "--settings-path=${workspaceFolder}"
     ],
     "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         }
     },
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": [
+    "pylint.lintOnChange": true,
+    "pylint.args": [
         "--rcfile",
         "${env:HOME}/.config/wb/pylintrc"
-    ]
+    ],
+    "isort.importStrategy": "fromEnvironment"
 }
 ```
 
