@@ -190,27 +190,37 @@ self.parser.add_argument(
 
 Что именно происходит на CI - можно посмотреть [здесь](https://github.com/wirenboard/jenkins-pipeline-lib/blob/master/vars/wb.groovy) (поискав по ```runPythonChecks```; все скрипты берутся из codestyle).
 
+> :warning: На момент подготовки версии 1.0 ошибки `pylint` не будут приводить к падению сборки по умолчанию (при снятой галочке "angry pylint").
+> Это связано с множеством ложных срабатываний, в частности, на тестах с использованием `pytest`.
+>
+> Тем не менее, проверки будут проводиться и будут собираться их логи для анализа в будущем.
+
 
 ### Установка codestyle-тулзов
 На Дженкинсе и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем через virtualenv. **Не  использовать** пакетный менеджер системы во избежание бардака!
 
 #### Linux (и Jenkins)
-Скачать и выполнить [скрипт](https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-tools/python/deploy_tools.sh) TODO: поправить ссылку
+Скачать и выполнить [скрипт](https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-tools/python/deploy_tools.sh)
 
 На Jenkins можно
 ```console
 $ DEPLOY_DIR=рабочая_директория_проекта ./deploy_tools.sh
 ```
 
-#### Windows
-___TODO: расписать полный боли и страданий путь любителей виндавса___
+#### Windows (на свой страх и риск)
+* создать где-нибудь на C: общесистемную директорию для codestyle virtualenv
+* выкачать туда requirements.txt, pyproject.toml, pylintrc
+* открыть в ней cmd.exe
+* выполнить:
+```console
+$ C:\Path\To\Python\python3.exe -m venv codestyle_venv && .\\codestyle_venv\\Scripts\\activate.bat && py -m pip install --upgrade pip && py -m pip install -r requirements.txt && deactivate codestyle_venv
+```
+* настроить VSCode далее по инструкции, прописав правильные WIN-пути к:
+* * python.defaultInterpreterPath
+* * black-formatter.args
+* * pylint.args
 
 ### Запуск руками (в директории проекта)
-
-> :warning: На момент подготовки версии 1.0 ошибки `pylint` не будут приводить к падению сборки по умолчанию.
-> Это связано с множеством ложных срабатываний, в частности, на тестах с использованием `pytest`.
->
-> Тем не менее, проверки будут проводиться и будут собираться их логи для анализа в будущем.
 
 **Активировать venv!**
 ```console
