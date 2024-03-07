@@ -200,25 +200,32 @@ self.parser.add_argument(
 На Дженкинсе и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем через virtualenv. **Не  использовать** пакетный менеджер системы во избежание бардака!
 
 #### Linux (и Jenkins)
-Скачать и выполнить [скрипт](https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-tools/python/deploy_tools.sh)
+Скачать и выполнить
+```console
+$ wget https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-tools/python/deploy_tools.sh -O deploy_tools.sh
+```
 
 На Jenkins можно
 ```console
-$ DEPLOY_DIR=рабочая_директория_проекта ./deploy_tools.sh
+$ DEPLOY_DIR=рабочая_директория_проекта SKIP_DOWNLOAD_CONFIGS=true bash deploy_tools.sh
 ```
 
-#### Windows (на свой страх и риск)
-* создать где-нибудь на C: общесистемную директорию для codestyle virtualenv
-* выкачать туда requirements.txt, pyproject.toml, pylintrc
-* открыть в ней cmd.exe
+#### Windows (пожалуйста, не используйте Windows)
+* открыть в командной строке домашнюю папку пользователя (запустив от имени администратора!)
+* выполнить
+```console
+$ py -m venv codestyle_venv
+```
+* выкачать в свежесозданную папку codestyle_venv файлы requirements.txt, pyproject.toml, pylintrc (скорее всего, сохранится, как pylintrc.txt) из этого репозитория
 * выполнить:
 ```console
-$ C:\Path\To\Python\python3.exe -m venv codestyle_venv && .\\codestyle_venv\\Scripts\\activate.bat && py -m pip install --upgrade pip && py -m pip install -r requirements.txt && deactivate codestyle_venv
+$ cd codestyle_venv
+$ .\Scripts\activate
+$ py -m pip install --upgrade pip
+$ py -m pip install -r requirements.txt
+$ deactivate
 ```
-* настроить VSCode далее по инструкции, прописав правильные WIN-пути к:
-* * python.defaultInterpreterPath
-* * black-formatter.args
-* * pylint.args
+* настроить VSCode далее по инструкции; с конфигом для windows
 
 ### Запуск руками (в директории проекта)
 
@@ -271,12 +278,14 @@ $ deactivate
  * в открывшемся редакторе вводим (или добавляем опции в существующий объект);
  * если файлы настроек расположены не в `~/.config/wb/`, то заменяем `${env:HOME}/.config/wb/` на корректный путь:
 
+#### Linux
 ```json
 {
     "python.defaultInterpreterPath": "${env:HOME}/.config/wb/codestyle_venv/bin/python3",
     "black-formatter.args": [
         "--config=${env:HOME}/.config/wb/pyproject.toml"
     ],
+    "black-formatter.importStrategy": "fromEnvironment",
     "isort.check": true,
     "isort.args": [
         "--settings-path=${workspaceFolder}"
@@ -292,6 +301,34 @@ $ deactivate
     "pylint.args": [
         "--rcfile",
         "${env:HOME}/.config/wb/pylintrc"
+    ],
+    "isort.importStrategy": "fromEnvironment"
+}
+```
+
+#### Windows
+```json
+{
+    "python.defaultInterpreterPath": "${userHome}\\codestyle_venv\\Scripts\\python.exe",
+    "black-formatter.args": [
+        "--config=${userHome}\\codestyle_venv\\pyproject.toml"
+    ],
+    "black-formatter.importStrategy": "fromEnvironment",
+    "isort.check": true,
+    "isort.args": [
+        "--settings-path=${workspaceFolder}"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "pylint.lintOnChange": true,
+    "pylint.args": [
+        "--rcfile",
+        "${userHome}\\codestyle_venv\\pylintrc.txt"
     ],
     "isort.importStrategy": "fromEnvironment"
 }
