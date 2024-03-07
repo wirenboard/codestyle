@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 set -e
 
@@ -11,9 +11,11 @@ DEPLOY_DIR="${DEPLOY_DIR:-/home/$USER/.config/wb}"
 
 mkdir -p $DEPLOY_DIR
 pushd $DEPLOY_DIR
-wget $PYLINTRC_URL -O pylintrc
-wget $PYPROJECT_URL -O pyproject.toml
-wget $REQUIREMENTS_URL -O requirements.txt # TODO: fix url
+if [[ -z "$SKIP_DOWNLOAD_CONFIGS" ]]; then
+    wget $PYLINTRC_URL -O pylintrc
+    wget $PYPROJECT_URL -O pyproject.toml
+    wget $REQUIREMENTS_URL -O requirements.txt
+fi
 python3 -m venv $VENV_NAME
 source $VENV_NAME/bin/activate
 python3 -m pip install --upgrade pip
