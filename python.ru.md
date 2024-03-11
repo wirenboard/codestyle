@@ -197,7 +197,12 @@ self.parser.add_argument(
 
 
 ### Установка codestyle-тулзов
-На Дженкинсе и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем через virtualenv. **Не  использовать** пакетный менеджер системы во избежание бардака!
+На CI и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем через virtualenv. Если нужно, тулзы и конфиги можно доустановить и в существуюший venv проекта.
+
+> :information_source: Isort имеет очень своеобразную захардкоженную внутри логику поиска конфига и определения корня проекта, из-за чего и получались разногласия с запуском локально и на CI.
+>
+> Похоже, единственно рабочее решение - иметь pyproject.toml в корне проекта.
+
 
 #### Linux (и Jenkins)
 Скачать и выполнить
@@ -214,7 +219,7 @@ $ DEPLOY_DIR=рабочая_директория_проекта SKIP_DOWNLOAD_CO
 ```console
 $ VENV=путь_к_вашему_venv ./deploy_tools.sh
 ```
-В таком случае, в ваш venv установятся requirements.txt из codestyle. Соответственно, в vscode настраивайте свой venv.
+В таком случае, в ваш venv установятся requirements.txt из codestyle. Соответственно, в vscode настраиваем свой venv.
 
 #### Windows (пожалуйста, не используйте Windows)
 * открыть в командной строке домашнюю папку пользователя (запустив от имени администратора!)
@@ -235,7 +240,7 @@ $ deactivate
 
 ### Запуск руками (в директории проекта)
 
-**Активировать venv!** (пример по умолчанию; venv может быть и свой)
+**Активировать venv!** (пример по умолчанию; venv может быть и из проекта)
 ```console
 $ source ~/.config/wb/codestyle_venv/bin/activate
 ```
@@ -247,14 +252,14 @@ $ python3 -m pylint --rcfile "/home/$USER/.config/wb/pylintrc" $(find . -name '*
 
 #### black + isort (dry-run)
 ```console
-$ python3 -m black --config "/home/$USER/.config/wb/pyproject.toml" --check --diff $(find . -name '*.py')
-$ cp /home/$USER/.config/wb/pyproject.toml tmp_pyproject.toml; python3 -m isort --settings-file tmp_pyproject.toml --check --diff $(find . -name '*.py')
+$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m black --config pyproject.toml --check --diff $(find . -name '*.py')
+$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m isort --settings-file pyproject.toml --check --diff $(find . -name '*.py')
 ```
 
 #### black + isort (автоформатирование)
 ```console
-$ python3 -m black --config "/home/$USER/.config/wb/pyproject.toml" $(find . -name '*.py')
-$ cp /home/$USER/.config/wb/pyproject.toml tmp_pyproject.toml; python3 -m isort --settings-file tmp_pyproject.toml $(find . -name '*.py')
+$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m black --config "pyproject.toml" $(find . -name '*.py')
+$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m isort --settings-file pyproject.toml $(find . -name '*.py')
 ```
 
 > :information_source: При изменении форматирования в репозитории может сильно испортиться вывод `git blame`.
