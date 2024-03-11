@@ -313,7 +313,11 @@ $ deactivate
         "--rcfile",
         "${env:HOME}/.config/wb/pylintrc"
     ],
-    "isort.importStrategy": "fromEnvironment"
+    "isort.importStrategy": "fromEnvironment",
+    "pylint.importStrategy": "fromEnvironment",
+    "pylint.severity": {
+        "refactor": "Warning"
+    },
 }
 ```
 
@@ -341,7 +345,11 @@ $ deactivate
         "--rcfile",
         "${userHome}\\codestyle_venv\\pylintrc.txt"
     ],
-    "isort.importStrategy": "fromEnvironment"
+    "isort.importStrategy": "fromEnvironment",
+    "pylint.importStrategy": "fromEnvironment",
+    "pylint.severity": {
+        "refactor": "Warning"
+    },
 }
 ```
 
