@@ -196,70 +196,64 @@ self.parser.add_argument(
 > Тем не менее, проверки будут проводиться и будут собираться их логи для анализа в будущем.
 
 
-### Установка codestyle-тулзов
-На CI и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем через virtualenv. Если нужно, тулзы и конфиги можно доустановить и в существуюший venv проекта.
+### Установка codestyle-тулзов (один раз для проекта)
+На CI и в локальной системе разработчика тулзы должны быть одинаковыми, поэтому black, isort и pylint устанавливаем путём создания virtualenv внутри каждого проекта. Если нужно, тулзы и конфиги можно доустановить и в существуюший venv проекта.
 
 > :information_source: Isort имеет очень своеобразную захардкоженную внутри логику поиска конфига и определения корня проекта, из-за чего и получались разногласия с запуском локально и на CI.
 >
 > Похоже, единственно рабочее решение - иметь pyproject.toml в корне проекта.
 
+Если в проекте нет `pyproject.toml`, `requirements.txt` - выкачать их [отсюда](https://github.com/wirenboard/codestyle/tree/master/python) и положить в корень проекта.
 
+Открыть в vscode проект -> ```Ctrl+Shift+P``` -> ```Python: Create Environment``` -> ```Venv```
+
+```Ctrl + Shift + P``` -> ```Python: Create Terminal``` -> откроется терминал с уже активным venv; выполнить: ```pip3 install -r requirements.txt``` - linux; ```py -m pip install -r requirements.txt``` - windows
+
+### Если без vscode
 #### Linux (и Jenkins)
-Скачать и выполнить
+Выполнить в корне проекта
 ```console
-$ wget https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-tools/python/deploy_tools.sh -O deploy_tools.sh
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip3 install -r requirements.txt
+$ deactivate
 ```
+_Можно доустановить requirements.txt из codestyle и в свой venv._
 
-На Jenkins можно
-```console
-$ DEPLOY_DIR=рабочая_директория_проекта SKIP_DOWNLOAD_CONFIGS=true bash deploy_tools.sh
-```
-
-Если используете venv в проекте - можно
-```console
-$ VENV=путь_к_вашему_venv ./deploy_tools.sh
-```
-В таком случае, в ваш venv установятся requirements.txt из codestyle. Соответственно, в vscode настраиваем свой venv.
-
-#### Windows (пожалуйста, не используйте Windows)
-* открыть в командной строке домашнюю папку пользователя (запустив от имени администратора!)
+#### Windows
+* открыть в командной строке корневую директорию проекта (запустив от имени администратора!)
 * выполнить
 ```console
-$ py -m venv codestyle_venv
-```
-* выкачать в свежесозданную папку codestyle_venv файлы requirements.txt, pyproject.toml, pylintrc (скорее всего, сохранится, как pylintrc.txt) из этого репозитория
-* выполнить:
-```console
-$ cd codestyle_venv
-$ .\Scripts\activate
+$ py -m venv .venv
+$ .\.venv\Scripts\activate
 $ py -m pip install --upgrade pip
 $ py -m pip install -r requirements.txt
 $ deactivate
 ```
 * настроить VSCode далее по инструкции; с конфигом для windows
 
-### Запуск руками (в директории проекта)
+### Запуск руками (в директории проекта; [pyproject.toml](https://raw.githubusercontent.com/wirenboard/codestyle/master/python/pyproject.toml) присутствует)
 
-**Активировать venv!** (пример по умолчанию; venv может быть и из проекта)
+**Активировать venv** (пример по умолчанию; venv может быть и другим)
 ```console
-$ source ~/.config/wb/codestyle_venv/bin/activate
+$ source .venv/bin/activate
 ```
 
 #### pylint
 ```console
-$ python3 -m pylint --rcfile "/home/$USER/.config/wb/pylintrc" $(find . -name '*.py')
+$ python3 -m pylint $(find . -name '*.py')
 ```
 
 #### black + isort (dry-run)
 ```console
-$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m black --config pyproject.toml --check --diff $(find . -name '*.py')
-$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m isort --settings-file pyproject.toml --check --diff $(find . -name '*.py')
+$ python3 -m black --config pyproject.toml --check --diff $(find . -name '*.py')
+$ python3 -m isort --settings-file pyproject.toml --check --diff $(find . -name '*.py')
 ```
 
 #### black + isort (автоформатирование)
 ```console
-$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m black --config "pyproject.toml" $(find . -name '*.py')
-$ test -f pyproject.toml || cp /home/$USER/.config/wb/pyproject.toml .; python3 -m isort --settings-file pyproject.toml $(find . -name '*.py')
+$ python3 -m black --config pyproject.toml $(find . -name '*.py')
+$ python3 -m isort --settings-file pyproject.toml $(find . -name '*.py')
 ```
 
 > :information_source: При изменении форматирования в репозитории может сильно испортиться вывод `git blame`.
@@ -289,12 +283,13 @@ $ deactivate
  * в открывшемся редакторе вводим (или добавляем опции в существующий объект);
  * если файлы настроек расположены не в `~/.config/wb/`, то заменяем `${env:HOME}/.config/wb/` на корректный путь:
 
-#### Linux
+#### Linux и Windows
 ```json
 {
-    "python.defaultInterpreterPath": "${env:HOME}/.config/wb/codestyle_venv/bin/python3",
+    "python.defaultInterpreterPath": "${workspaceFolder}/bin/python3",
+    "python.terminal.activateEnvironment": true,
     "black-formatter.args": [
-        "--config=${env:HOME}/.config/wb/pyproject.toml"
+        "--config=${workspaceFolder}/pyproject.toml"
     ],
     "black-formatter.importStrategy": "fromEnvironment",
     "isort.check": true,
@@ -309,42 +304,6 @@ $ deactivate
         }
     },
     "pylint.lintOnChange": true,
-    "pylint.args": [
-        "--rcfile",
-        "${env:HOME}/.config/wb/pylintrc"
-    ],
-    "isort.importStrategy": "fromEnvironment",
-    "pylint.importStrategy": "fromEnvironment",
-    "pylint.severity": {
-        "refactor": "Warning"
-    },
-}
-```
-
-#### Windows
-```json
-{
-    "python.defaultInterpreterPath": "${userHome}\\codestyle_venv\\Scripts\\python.exe",
-    "black-formatter.args": [
-        "--config=${userHome}\\codestyle_venv\\pyproject.toml"
-    ],
-    "black-formatter.importStrategy": "fromEnvironment",
-    "isort.check": true,
-    "isort.args": [
-        "--settings-path=${workspaceFolder}"
-    ],
-    "[python]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
-    "pylint.lintOnChange": true,
-    "pylint.args": [
-        "--rcfile",
-        "${userHome}\\codestyle_venv\\pylintrc.txt"
-    ],
     "isort.importStrategy": "fromEnvironment",
     "pylint.importStrategy": "fromEnvironment",
     "pylint.severity": {
