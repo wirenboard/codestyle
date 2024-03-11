@@ -210,6 +210,12 @@ $ wget https://raw.githubusercontent.com/wirenboard/codestyle/feature/python-too
 $ DEPLOY_DIR=рабочая_директория_проекта SKIP_DOWNLOAD_CONFIGS=true bash deploy_tools.sh
 ```
 
+Если используете venv в проекте - можно
+```console
+$ VENV=путь_к_вашему_venv ./deploy_tools.sh
+```
+В таком случае, в ваш venv установятся requirements.txt из codestyle. Соответственно, в vscode настраивайте свой venv.
+
 #### Windows (пожалуйста, не используйте Windows)
 * открыть в командной строке домашнюю папку пользователя (запустив от имени администратора!)
 * выполнить
@@ -229,7 +235,7 @@ $ deactivate
 
 ### Запуск руками (в директории проекта)
 
-**Активировать venv!**
+**Активировать venv!** (пример по умолчанию; venv может быть и свой)
 ```console
 $ source ~/.config/wb/codestyle_venv/bin/activate
 ```
