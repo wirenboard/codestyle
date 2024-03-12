@@ -205,9 +205,10 @@ self.parser.add_argument(
 
 Если в проекте нет `pyproject.toml`, `requirements.txt` - выкачать их [отсюда](https://github.com/wirenboard/codestyle/tree/master/python) и положить в корень проекта.
 
+> :warning: Только для Linux! (в Windows venv через vscode создаётся не в проекте, а системный)
 Открыть в vscode проект -> ```Ctrl+Shift+P``` -> ```Python: Create Environment``` -> ```Venv```
 
-```Ctrl + Shift + P``` -> ```Python: Create Terminal``` -> откроется терминал с уже активным venv; выполнить: ```pip3 install -r requirements.txt``` - linux; ```py -m pip install -r requirements.txt``` - windows
+```Ctrl + Shift + P``` -> ```Python: Create Terminal``` -> откроется терминал с уже активным venv; выполнить: ```pip3 install -r requirements.txt```
 
 ### Если без vscode
 #### Linux (и Jenkins)
