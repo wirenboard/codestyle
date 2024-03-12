@@ -265,7 +265,7 @@ typedef struct {
 struct hold_reg {
     uint16_t address;
     uint16_t data;
-} hold_reg_t;
+};
 ```
 
 ## Ветвления
