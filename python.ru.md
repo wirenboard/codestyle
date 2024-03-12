@@ -283,10 +283,10 @@ $ deactivate
  * в открывшемся редакторе вводим (или добавляем опции в существующий объект);
  * если файлы настроек расположены не в `~/.config/wb/`, то заменяем `${env:HOME}/.config/wb/` на корректный путь:
 
-#### Linux и Windows
+#### Linux
 ```json
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/bin/python3",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python3",
     "python.terminal.activateEnvironment": true,
     "black-formatter.args": [
         "--config=${workspaceFolder}/pyproject.toml"
@@ -311,6 +311,37 @@ $ deactivate
     },
 }
 ```
+
+#### Windows
+```json
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    "python.terminal.activateEnvironment": true,
+    "black-formatter.args": [
+        "--config=${workspaceFolder}\\pyproject.toml"
+    ],
+    "black-formatter.importStrategy": "fromEnvironment",
+    "isort.check": true,
+    "isort.args": [
+        "--settings-path=${workspaceFolder}"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "pylint.lintOnChange": true,
+    "isort.importStrategy": "fromEnvironment",
+    "pylint.importStrategy": "fromEnvironment",
+    "pylint.severity": {
+        "refactor": "Warning"
+    },
+}
+```
+
+
 
 Ещё гайдлайны
 -------------
