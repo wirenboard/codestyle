@@ -7,11 +7,12 @@ if [ $# -eq 0 ]; then
 fi
 
 FAIL=0
+MAXPROC=${MAXPROC:-$(nproc)}
 
 clang-tidy --version
 
 for dir in "$@"; do
-    find "${dir}" \( -iname '*.h' -o -iname '*.cpp' \) -type f -print0 | xargs -0 clang-tidy --extra-arg="${CLANG_TIDY_EXTRA_ARG}" -p . || FAIL=1
+    find "${dir}" \( -iname '*.h' -o -iname '*.cpp' \) -type f -print0 | xargs -0 -L1 -P "$MAXPROC" clang-tidy --extra-arg="${CLANG_TIDY_EXTRA_ARG}" -p . || FAIL=1
 done
 
 exit $FAIL
