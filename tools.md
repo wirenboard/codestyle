@@ -164,6 +164,13 @@ Chrome и Opera).
 ------------------------
 
  * [direnv](https://direnv.net/) - создаёт изолированные окружения под разные проекты (подробнее тут https://github.com/wirenboard/wb-nixpkgs#development)
+ * [devcontainer](https://github.com/devcontainers/cli) - сборка в devenv окружении:
+```sh
+$ cd wb-mqtt-serial
+$ cp -r ../wirenboard/vscode/cpp/.devcontainer .
+$ devcontainer up --workspace-folder .
+$ devcontainer exec --workspace-folder . schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make'
+```
 
 MQTT
 ----
