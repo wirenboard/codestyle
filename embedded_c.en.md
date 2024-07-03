@@ -202,7 +202,9 @@ static const uint8_t array_example[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE };
 Текст  от знака ```//``` отделяется пробелом.
 
 ## Расстановка скобок
-Перенос скобки на следующую строку начала определения осуществляется в функциях и многострочных условиях, в остальном нет.
+Даже если тело условного блока состоит из одной строки, оно заключается в фигурные скобки.
+
+Перенос скобки на следующую строку начала определения осуществляется в функциях и многострочных условиях (if, else if), в остальном нет.
 Расстановка скобок:
 ```C
 void function(void)
@@ -220,7 +222,13 @@ void function(void)
     if ((a == b) ||
         (c == d))
     {
-        // multi str action use brackets with newline
+        // multi str condition use statement body open bracket with newline
+    } else if ((a != b) &&
+               (c != e))
+    {
+        // multi str condition use statement body open bracket with newline
+    } else if (c == e) {
+        // single str condition use statement body open bracket with one line
     }
 }
 
