@@ -20,16 +20,19 @@
   * аккуратно завершается при отключении:
     * гарантированно публикует пустые retain-сообщения на месте метаданных;
     * отправляет disconnect (смотреть в логах mosquitto);
+  * аккуратно завершается, если, согласно конфигу, от сервиса ничего не требуется:
+    * пример: в serial выключены все порты, в mbgate выключены все топики и т.п.
 
 
 Возвращаемые значения при завершении работы сервиса
 ---
 
 Сервис в зависимости от типа возникающих ошибок возвращает код:
-* `EXIT_SUCCESS=0` (входит в `stdlib.h`) - успешное завершение
-* `EXIT_FAILURE=1` (входит в `stdlib.h`) - общая ошибка при неудачном завершении работы сервиса
-* `EXIT_INVALIDARGUMENT=2` (входит в спецификацию [LSB](https://refspecs.linuxbase.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html)) - неверные или лишние аргументы командной строки
-* `EXIT_NOTCONFIGURED=6` (входит в спецификацию [LSB](https://refspecs.linuxbase.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html)) - неверная конфигурация
+* `EXIT_SUCCESS=0` (входит в `stdlib.h`) - успешное завершение (не имеет смысла в контексте долгоживущего сервиса, подходит для oneshot). Для обычных сервисов см. `EXIT_NOTRUNNING=7`
+* `EXIT_FAILURE=1` (входит в `stdlib.h`) - общая ошибка при неудачном завершении работы сервиса, есть смысл перезапустить сервис
+* `EXIT_INVALIDARGUMENT=2` (входит в спецификацию [LSB](https://refspecs.linuxbase.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html)) - неверные или лишние аргументы командной строки, автоматически перезапускать сервис бессмысленно
+* `EXIT_NOTCONFIGURED=6` (входит в спецификацию [LSB](https://refspecs.linuxbase.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html)) - неверная конфигурация (когда конфиг плохо распарсился или в нём есть логические ошибки), автоматически перезапускать сервис бессмысленно
+* `EXIT_NOTRUNNING=7` (входит в спецификацию [LSB](https://refspecs.linuxbase.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html)) - согласно конфигурации, сервису не надо ничего делать, потому он выключился и не потребляет ресурсов, при этом он не failed
 
 Дополнительные коды можно взять из спецификации:
 https://freedesktop.org/software/systemd/man/systemd.exec.html#Process%20Exit%20Codes
@@ -50,6 +53,14 @@ RestartSec=<Время ожидания перед перезапуском сл
 ```bash
 [Service]
 ...
-RestartPreventExitStatus=2 3 4 5 6 7
+RestartPreventExitStatus=2 3 4 5 6
+...
+```
+
+Чтобы статус `EXIT_NOTRUNNING=7` не считался ошибкой, необходимо добавить параметр в файл настройки systemd модуля в секцию `Service`:
+```bash
+[Service]
+...
+SuccessExitStatus=7
 ...
 ```
