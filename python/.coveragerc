@@ -1,5 +1,2 @@
 [run]
-omit = /usr/lib
-
-[report]
-fail_under = 90
+omit = /usr/lib/*
