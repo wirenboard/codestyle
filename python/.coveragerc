@@ -1,2 +1,5 @@
 [run]
 omit = /usr/lib
+
+[report]
+fail_under = 90
