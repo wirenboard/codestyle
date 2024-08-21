@@ -1,2 +1,5 @@
 [run]
 omit = /usr/lib/*
+; By default, the data file is located at /<<PKGBUILDDIR>>/.pybuild/cpython3_3.9_wb-nm-helper/build/.
+; Because of that sbuild includes this file in deb package. To avoid this, put the file directly into the /<<PKGBUILDDIR>>
+data_file = ../../../../.coverage 
