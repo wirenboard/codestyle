@@ -46,7 +46,7 @@ def loop_forever(self):
 соединений чревато ситуациями, когда из-за перезапуска брокера или потери
 соединения процесс начинает потреблять 100% CPU без видимых причин, при
 этом соединение не восстанавливается. Пример:
-https://wirenboard.bitrix24.ru/company/personal/user/28/tasks/task/view/52850/
+https://wirenboard.youtrack.cloud/issue/SOFT-2550/wb-diag-collect-zagruzhaet-processor-na-100-posle-restarta-servisa-mosquitto
 
 
 ### Аккуратная остановка сервиса
