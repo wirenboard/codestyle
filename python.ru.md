@@ -362,7 +362,7 @@ $ pytest --cov --cov-config=./.coveragerc --cov-report=term --cov-branch --cov-f
 
 #### Внутри venv
 
-1. Настроить venv [по инструкции для codestyle-проверок](###-Установка-codestyle-тулзов-(один-раз-для-проекта)). В venv должен установиться пакет pytest-cov.
+1. Настроить venv [по инструкции для codestyle-проверок](#установка-codestyle-тулзов-один-раз-для-проекта). В venv должен установиться пакет pytest-cov.
 2. Скачать из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положить в корень проекта.
 3. Запустить
 ```console
