@@ -357,7 +357,7 @@ Code coverage
 1. Скачать из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положить в корень проекта.
 2. Запустить
 ```console
-$ pytest --cov --cov-config=./.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>
+$ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>
 ```
 
 #### Внутри venv
@@ -366,7 +366,7 @@ $ pytest --cov --cov-config=./.coveragerc --cov-report=term --cov-branch --cov-f
 2. Скачать из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положить в корень проекта.
 3. Запустить
 ```console
-$ pytest --cov --cov-config=./.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>
+$ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>
 ```
 
 #### Сборка wbdev
@@ -395,13 +395,13 @@ $ wbdev ndeb
    выбираем `Preferences: Open Workspace Settings (JSON)`
 3. К массиву опций запуска добавляем:
 ```
-"--cov","--cov-config","./.coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
+"--cov","--cov-config",".coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
 ```
 Должны получиться примерно такие настройки:
 ```json
 {
     "python.testing.pytestArgs": [
-        "tests","--cov","--cov-config","./.coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
+        "tests","--cov","--cov-config",".coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
