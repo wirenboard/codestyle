@@ -390,10 +390,12 @@ $ wbdev ndeb
 ### Настройка VSCode
 
 #### Для запуска тестов из VSCode:
-1. Установите плагин для Python и настройте запуск тестов через pytest
-2. Откройте настройки workspace: нажмите комбинацию `Ctrl-Shift-P`, в поиске введите `settings json`,
+
+1. Скачайте из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положите в корень проекта.
+2. Установите плагин для Python и настройте запуск тестов через pytest
+3. Откройте настройки workspace: нажмите комбинацию `Ctrl-Shift-P`, в поиске введите `settings json`,
    выбираем `Preferences: Open Workspace Settings (JSON)`
-3. К массиву опций запуска добавляем:
+4. К массиву опций запуска добавляем:
 ```
 "--cov","--cov-config",".coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
 ```
