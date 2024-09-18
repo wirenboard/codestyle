@@ -342,6 +342,79 @@ $ deactivate
 }
 ```
 
+Code coverage
+-------------
+
+Для оценки покрытия тестов используется плагин pytest `coverage`. Оценка показывает процент выполнившихся строк кода и веток условий относительно общего объема файлов, использованных в процессе тестирования.
+
+### Запуск
+
+В зависимости от того, как вы запускаете тесты, нужно использовать разные сценарии.
+**Минимально допустимое значение покрытия для прохождения тестов указывается в аргументе `--cov-fail-under`** 
+
+#### Внутри devcontainer
+
+1. Скачать из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положить в корень проекта.
+2. Запустить
+```console
+$ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>
+```
+
+#### Внутри venv
+
+1. Настроить venv [по инструкции для codestyle-проверок](#установка-codestyle-тулзов-один-раз-для-проекта). В venv должен установиться пакет pytest-cov.
+2. Скачать из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положить в корень проекта.
+3. Запустить
+```console
+$ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>
+```
+
+#### Сборка wbdev
+
+Работает только для `wbdev ndeb` и `wbdev cdeb`
+1. Скачать из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положить в корень проекта.
+2. Запустить
+```console
+$ export WBDEV_PYBUILD_TEST_ARGS="--cov --cov-config=../../../.coveragerc --cov-report=term --cov-branch --cov-fail-under=<limit>"
+$ wbdev ndeb
+```
+
+### Отчеты
+
+Для сборки внутри devcontainer и внутри venv есть возможность сгенерировать html отчет (для варианта wbdev сложные аргументы запуска, поэтому не приводим его). Для включения генерации нужно добавить опцию запуска
+```console
+--cov-report=html
+```
+В папке проекта создастся папка htmlcov. Чтобы посмотреть отчет, откройте файл index.html в браузере.
+
+### Настройка VSCode
+
+#### Для запуска тестов из VSCode:
+
+1. Скачайте из [codestyle-репозитория](https://github.com/wirenboard/codestyle/tree/master/python) файл `.coveragerc` и положите в корень проекта.
+2. Установите плагин для Python и настройте запуск тестов через pytest
+3. Откройте настройки workspace: нажмите комбинацию `Ctrl-Shift-P`, в поиске введите `settings json`,
+   выбираем `Preferences: Open Workspace Settings (JSON)`
+4. К массиву опций запуска добавляем:
+```
+"--cov","--cov-config",".coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
+```
+Должны получиться примерно такие настройки:
+```json
+{
+    "python.testing.pytestArgs": [
+        "tests","--cov","--cov-config",".coveragerc","--cov-report","term","--cov-branch","--cov-fail-under","<limit>"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
+```
+
+#### Для просмотра отчета в исходных файлах:
+1. Установите плагин [Coverage Gutters](https://github.com/ryanluker/vscode-coverage-gutters)
+2. К опциям запуска добавьте `"--cov-report","xml"`
+3. Проведите тестирование
+3. Откройте файл, покрытие которого хотите посмотреть. В статус-баре VSCode найдите надпись `Watch` и нажмите ее для включения подсветки.
 
 
 Ещё гайдлайны
