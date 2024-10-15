@@ -36,7 +36,7 @@ _Следует писать сообщения коммитам на англи
   1. Получаем последнее состояние ветки `main` (или `master`).
   2. Создаём ветку. Допустимые имена веток:
 
-  - `feature/SOFT-XXXX-my-description` или `bugfix/SOFT-XXXX-my-description` (`XXXXX` - номер тикета в youtrack);
+  - `feature/SOFT-XXXX-my-description` или `bugfix/SOFT-XXXX-my-description` (`XXXX` - номер тикета в youtrack);
   - `feature/my-description` или `bugfix/my-description`, если тикета нет (например, быстро что-то исправили);
   - `tmp/username/my-description` для временных веток.
 
