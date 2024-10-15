@@ -1,4 +1,4 @@
-Процесс разработки проектов Wiren Board с использованием Git, Github, Bitrix24
+Процесс разработки проектов Wiren Board с использованием Git, Github, Youtrack
 ============================
 
 Общее
@@ -36,7 +36,7 @@ _Следует писать сообщения коммитам на англи
   1. Получаем последнее состояние ветки `main` (или `master`).
   2. Создаём ветку. Допустимые имена веток:
 
-  - `feature/XXXXX-my-description` или `bugfix/XXXXX-my-description` (`XXXXX` - номер тикета в bitrix24);
+  - `feature/SOFT-XXXX-my-description` или `bugfix/SOFT-XXXX-my-description` (`XXXXX` - номер тикета в youtrack);
   - `feature/my-description` или `bugfix/my-description`, если тикета нет (например, быстро что-то исправили);
   - `tmp/username/my-description` для временных веток.
 
@@ -203,7 +203,7 @@ _Следует писать сообщения коммитам на англи
 версии будет `2.3.4-wb2` и так далее. _В правила нумерации версий в релизах в отдельных случаях могут быть внесены изменения_.
 
 
-Связь с bitrix24
+Связь с youtrack
 ----------------
 
-Настроена связь git и bitrix24: ветки с названием X/N-Y (например: feature/12345-bitrix-integration), автоматически привязываются к задаче с номером N в битриксе.
+Настроена связь git и youtrack: ветки с названием X/SOFT-N-Y (например: feature/SOFT-1234-bitrix-integration), автоматически привязываются к задаче с номером N в youtrack.
