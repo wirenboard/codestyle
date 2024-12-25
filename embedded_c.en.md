@@ -294,6 +294,31 @@ if (cond1) {
 
 Часто бывает что устройство имеет несколько входов/выходов/шин/светодиодов/кнопок итд, абсолютно всегда все что потенциально может быть больше чем в одном экземпляре должно обрабатываться через индексы и циклы.
 
+Плохой пример:
+```C
+    #define INPUT_1     { GPIOA, 10 }
+    #define INPUT_2     { GPIOA, 11 }
+
+    ...
+
+    gpio_init(INPUT_1);
+    gpio_init(INPUT_2);
+```
+
+В таком виде трудно вносить изменения, легко допустить ошибку, поправить одно и забыть другое.
+
+Лушче написать так:
+```C
+    #define INPUTS_NUMBER 2
+    #define INPUTS       { { GPIOA, 10 }, { GPIOA, 11 } }
+
+    ...
+
+    for (int i = 0; i < INPUTS_NUMBER; i++) {
+        gpio_init(INPUTS[i]);
+    }
+```
+
 ## Исправление ошибок в master
 
 Ранее допущенные ошибки форматирования исправляются в отдельной ветке с PR согласно кодстайлу.
@@ -395,3 +420,75 @@ enum w1_protocol_transaction {
     W1_PROTOCOL_TRANSACTION_RECEIVE
 }
 ```
+# switch case
+Старайтесь не использовать switch case. Если вы делаете несколько конструкций switch case по одной и той же переменной то это признак того что вам нужно использовать полиморфизм. Объедините в структуру все сущности, зависящие от этой переменной. Создайте массив таких структур и используйте переменную в качестве индекса для доступа к текущей структуре.
+
+Например вместо:
+```C
+void input_handler(unsigned input) {
+    switch (input) {
+        case SIGNAL_IRQ:
+            signal_irq_handler();
+            break;
+        case SIGNAL_ERROR:
+            signal_error_handler();
+            break;
+        case SIGNAL_READY:
+            signal_ready_handler();
+            break;
+        default:
+            break;
+    }
+}
+```
+
+Лучше использовать:
+```C
+
+void input_handler(unsigned input) {
+    static const void (*handlers[])(void) = {
+        [SIGNAL_IRQ] = signal_irq_handler,
+        [SIGNAL_ERROR] = signal_error_handler,
+        [SIGNAL_READY] = signal_ready_handler,
+    };
+    handlers[input]();
+}
+```
+
+Такой код компактнее, быстрее выполняется. Также он обеспечивает консистентность, так как по этим же индексам у нас наверняка будет описан список портов GPIO на который подключены эти сигналы, итд.
+
+# Не плодите макросы конфигурации
+Часто макросами в коде выбирается какая переферия используется в данном варианте, вариантов обычно не много, а переферии наоборот много. Вместо того чтобы прописывать макрос на каждый регистр или значение используйте структуры.
+
+Вместо такого:
+```C
+    #define MODBUS_HW_USART                 USART1
+    #define MODBUS_HW_USART_IRQn            USART1_IRQn
+    #define MODBUS_HW_DMA_TX_CH             DMA1_Channel2
+```
+
+Лучше написать так:
+```C
+    struct modbus_hw {
+        USART_TypeDef *usart;
+        IRQn_Type irqn;
+        DMA_Channel_TypeDef *dma_tx_ch;
+    };
+
+    #define MODBUS_USART_HW                 { \
+            .usart = USART1, \
+            .irqn = USART1_IRQn, \
+            .dma_tx_ch = DMA1_Channel2 \
+        }
+
+```
+
+# Переиспользование
+Повторно использовать код. Не писать код если он уже написан.
+Чтобы не оставлять ошибки в дубликатах, экономить силы программиста и прочее. Читать подробнее в [Википедии](https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B5_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BA%D0%BE%D0%B4%D0%B0).
+Если есть 2 одинаковые строчки, подумайте, не оформить ли это в функцию, библиотеку или использовать в уже существующую.
+Для использования кода с другого устройства - сделайте его библиотекой.
+
+
+
+
