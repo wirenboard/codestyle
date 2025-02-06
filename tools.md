@@ -168,7 +168,7 @@ Chrome и Opera).
 ```sh
 $ cd wb-mqtt-serial
 $ cp -r ../wirenboard/vscode/cpp/.devcontainer .
-$ devcontainer up --workspace-folder .
+$ devcontainer up --remove-existing-container --workspace-folder .
 $ devcontainer exec --workspace-folder . schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make'
 ```
 
@@ -176,4 +176,16 @@ MQTT
 ----
 
  * [MQTT-Explorer](https://github.com/thomasnordquist/MQTT-Explorer) - GUI клиент
- * [mqttui](https://github.com/EdJoPaTo/mqttui) - TUI клиент
+ * [mqttui](https://github.com/EdJoPaTo/mqttui) - TUI клиент (доступно в deb.wirenboard.com для усттановки на контроллер)
+
+BoltDB
+------
+
+ * [boltbrowser](https://github.com/br0xen/boltbrowser) - CLI Browser for BoltDB Files
+```
+# wget -o boltbrowser https://github.com/br0xen/boltbrowser/releases/download/2.2/boltbrowser.linuxarm
+# chmod +x boltbrowser
+# systemctl stop wb-rules
+# ./boltbrowser /var/lib/wirenboard/wbrules-vdev.db
+# ./boltbrowser /var/lib/wirenboard/wbrules-persistent.db
+```
