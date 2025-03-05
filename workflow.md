@@ -167,10 +167,10 @@ _Следует писать сообщения коммитам на англи
 
   ### 6. Защита веток (публичный репо)
 
-  Защита веток актуальна **только для публичных репозиторие**.
-  Для приватных они не применятся. В закрытом репозитории будет предупреждение `Not enforced`
-  и всплывающее пояснение `Rules on your private repos can't be enforced until
-  you upgrade to GitHub Team or Enterprise.`
+  Защита веток актуальна **только для публичных репозиториев**, для приватных
+  они не применятся. В приватном репозитории рядом с правилом будет показано
+  предупреждение `Not enforced` и всплывающее пояснение `Rules on your private
+  repos can't be enforced until you upgrade to GitHub Team or Enterprise.`
 
   Зайти в раздел `Settings` репозитория -> `Code and automation` -> `Branches`
   и добавить два отдельных `Branch protection rules`:
