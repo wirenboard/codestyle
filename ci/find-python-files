@@ -1,13 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-files=`find . -name "*.py"; for file in \`find . -type f ! -name "*.*"\`; do mime=\`file -b --mime-type "$file"\`; if [ "$mime" == 'text/x-python' ] || [ "$mime" == 'text/x-script.python' ]; then echo "$file"; fi; done `
+python_files=()
 
-if [ "$WB_PYTHON_FILES_EXCLUDE" ]; then
-    for file in `echo "$files" | grep -v "$WB_PYTHON_FILES_EXCLUDE"` ; do
-        echo $file;
-    done
-else
-    for file in `echo "$files"`; do
-        echo $file;
-    done
-fi
+while IFS= read -r file; do
+    python_files+=("$file")
+done < <(find . -name "*.py")
+
+while IFS= read -r file; do
+    mime=$(file -b --mime-type "$file")
+    if [ "$mime" = 'text/x-python' ] || [ "$mime" = 'text/x-script.python' ]; then
+        python_files+=("$file")
+    fi
+done < <(find . -type f ! -name "*.*")
+
+for file in "${python_files[@]}"; do
+    if [ -n "$WB_PYTHON_FILES_EXCLUDE" ] && echo "$file" | grep -q "$WB_PYTHON_FILES_EXCLUDE"; then
+        continue
+    fi
+    echo "$file"
+done
