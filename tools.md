@@ -72,9 +72,9 @@ EOF
 ```sh
 $ cat ~/.config/git/config
 [alias]
-	jl = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job log $(basename $PWD)/job/{}\""
-	jb = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job build $(basename $PWD)/job/{}\""
-	jd = "!git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#' | xargs -I{} sh -c \"jcli job artifact download $(basename $PWD)/job/{}\""
+	jl = "!f() { branch=$(git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#'); job=$(basename $PWD)/job/$branch; jcli job log \"$job\" \"$@\"; }; f"
+	jb = "!f() { branch=$(git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#'); job=$(basename $PWD)/job/$branch; jcli job build \"$job\" \"$@\"; }; f"
+	jd = "!f() { branch=$(git rev-parse --abbrev-ref HEAD | sed 's#/#%252F#'); job=$(basename $PWD)/job/$branch; jcli job artifact download \"$job\" \"$@\"; }; f"
 ```
 
 Еще примеры:
