@@ -75,7 +75,7 @@ sysv в пользу systemd).
  6. Проверяем и вливаем все новые пакеты.
 
  7. Когда все пакеты влиты, меняем в пайплайне
-    [checkStaging](https://github.com/wirenboard/wirenboard/blob/master/ci/pipelines/checkStaging.groovy)
+    [checkStaging](https://github.com/wirenboard/jenkins-pipeline-lib/blob/master/pipelines/checkStaging.groovy)
     значение по умолчанию в `DEBIAN_RELEASE` на название нового релиза.
 
  8. Добавляем в `releases.yaml` в секцию `staging` в `exclude`, если там ещё нет:
