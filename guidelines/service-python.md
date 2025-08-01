@@ -18,7 +18,7 @@
 Если это сделать просто после вызова метода `connect()`, подписки и мета
 не будут восстановлены в случае перезапуска брокера или потери связи с ним.
 
-Если используется наша [mqtt-конвенция](https://github.com/wirenboard/conventions), при рестарте брокера **нужно перепубликовывать мету** (иначе, не будет видно даже простую публиковалку числа). Это выглядит примерно так:
+Если используется наша [mqtt-конвенция](https://github.com/wirenboard/conventions), при рестарте брокера **нужно перепубликовывать мету и последнее значение топика** (иначе, не будет видно даже простую публиковалку числа). Это связано с тем, что при перезапуске брокера удаляются все retained-топики. Это выглядит примерно так:
 ```python3
 ...
     self._was_disconnected = True
@@ -32,6 +32,7 @@ def _on_disconnect_handler(self, *args, **kwargs):
 def _on_connect_handler(self, *args, **kwargs):
     if self._was_disconnected:
         self.publish_meta()
+        self.publish_last_value()
         self._was_disconnected = False
 ```
 
