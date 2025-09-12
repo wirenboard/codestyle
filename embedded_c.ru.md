@@ -104,7 +104,7 @@ struct hold_reg {
 ## Кодировка
 Все файлы должны быть в кодировке UTF-8.
 
-## Конец строки
+## Конец файла
 Файл всегда заканчивается переводом строки.
 
 ## Выравнивание
@@ -194,13 +194,13 @@ static const uint8_t array_example[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE };
 void function(void)
 {
     if (a == b) {
-    // single str action use brackets
+        // single str action use brackets
     }
 
     if (c == d) {
-    // do if equal
+        // do if equal
     } else {
-    // do if not equal
+        // do if not equal
     }
 
     if ((a == b) ||
