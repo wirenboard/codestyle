@@ -1,0 +1,85 @@
+---
+BasedOnStyle: GNU
+Language: C
+
+# Basic formatting
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignOperands: Align
+AlignTrailingComments: true
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+
+# Macro-specific settings
+PPIndentWidth: 2
+MacroBlockBegin: ''
+MacroBlockEnd: ''
+
+# Pointers and references
+PointerAlignment: Right
+DerivePointerAlignment: false
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeElse: false
+  IndentBraces: false
+
+# Indentation
+IndentCaseLabels: false
+IndentPPDirectives: None
+ContinuationIndentWidth: 4
+
+# Spacing
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInParentheses: false
+SpacesBeforeTrailingComments: 1
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+
+# Line breaks
+MaxEmptyLinesToKeep: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+BreakStringLiterals: true
+AlwaysBreakAfterReturnType: None
+AlwaysBreakAfterDefinitionReturnType: None
+IndentWrappedFunctionNames: false
+PenaltyReturnTypeOnItsOwnLine: 1000
+
+# Function handling
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# Parameters and arguments
+BinPackArguments: true
+BinPackParameters: true
+AllowAllParametersOfDeclarationOnNextLine: true
+
+# Includes - explicitly disable sorting
+SortIncludes: false
+
+# Comments
+ReflowComments: true
+
+# Other
+DisableFormat: false
