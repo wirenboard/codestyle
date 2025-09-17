@@ -1,6 +1,6 @@
 ---
-BasedOnStyle: GNU
-Language: C
+BasedOnStyle: LLVM
+Language: Cpp
 
 # Basic formatting
 IndentWidth: 4
@@ -9,77 +9,50 @@ UseTab: Never
 ColumnLimit: 120
 
 # Alignment
-AlignAfterOpenBracket: Align
-AlignOperands: Align
-AlignTrailingComments: true
-AlignConsecutiveAssignments: None
-AlignConsecutiveDeclarations: None
 AlignConsecutiveMacros:
   Enabled: true
-  AcrossEmptyLines: false
-  AcrossComments: false
-
-# Macro-specific settings
-PPIndentWidth: 2
-MacroBlockBegin: ''
-MacroBlockEnd: ''
-
-# Pointers and references
-PointerAlignment: Right
-DerivePointerAlignment: false
+  AcrossEmptyLines: true
+  AcrossComments: true
+AlignAfterOpenBracket: BlockIndent
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1
+AlignEscapedNewlines: DontAlign
 
 # Braces
+InsertBraces: true
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
-  AfterControlStatement: false
+  AfterControlStatement: MultiLine
   AfterEnum: false
   AfterStruct: false
   AfterUnion: false
   BeforeElse: false
   IndentBraces: false
+  AfterCaseLabel: false
 
 # Indentation
-IndentCaseLabels: false
-IndentPPDirectives: None
+IndentPPDirectives: BeforeHash
 ContinuationIndentWidth: 4
 
-# Spacing
-SpaceBeforeParens: ControlStatements
-SpaceInEmptyParentheses: false
-SpacesInParentheses: false
-SpacesBeforeTrailingComments: 1
-SpaceAfterCStyleCast: false
-SpaceBeforeAssignmentOperators: true
-
 # Line breaks
-MaxEmptyLinesToKeep: 1
-KeepEmptyLinesAtTheStartOfBlocks: false
-BreakBeforeBinaryOperators: None
-BreakBeforeTernaryOperators: true
-BreakStringLiterals: true
-AlwaysBreakAfterReturnType: None
-AlwaysBreakAfterDefinitionReturnType: None
-IndentWrappedFunctionNames: false
-PenaltyReturnTypeOnItsOwnLine: 1000
-
-# Function handling
+AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
+SeparateDefinitionBlocks: Always
+InsertNewlineAtEOF: true
+PenaltyReturnTypeOnItsOwnLine: 1000
 
 # Parameters and arguments
-BinPackArguments: true
-BinPackParameters: true
-AllowAllParametersOfDeclarationOnNextLine: true
+BinPackArguments: false
+BinPackParameters: false
 
 # Includes - explicitly disable sorting
 SortIncludes: false
 
 # Comments
 ReflowComments: true
-
-# Other
-DisableFormat: false
