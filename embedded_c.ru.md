@@ -3,6 +3,105 @@ Wiren Board Embedded C Style Guide
 
 Этот документ описывает рекомендации по написанию легко читаемого и хорошо организованного кода на языке C для embedded-разработки.
 
+## Автоформатирование
+
+### clang-format
+Для автоформатирования кода используется clang-format с конфигурацией, представленной в файле `.clang-format-embedded-c`.
+
+Для того, чтобы использовать автоформатирование в редакторе VSCode, необходимо установить расширение [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) от Microsoft и указать в settings.json путь к файлу конфигурации:
+```json
+"C_Cpp.formatting": "clangFormat",
+"C_Cpp.clang_format_style": "file:<path-to-.clang-format-embedded-c>",
+```
+После этого можно:
+- форматировать файл комбинацией клавиш Ctrl+Shift+I
+- форматировать только выделенный фрагмент с помощью Ctrl+K, Ctrl+F
+- форматировать только измененные строки с помощью команды `Format Modified Lines` (можно назначить горячую клавишу)
+
+Для запуска автоформатирования из командной строки можно использовать команду:
+```bash
+clang-format -style=file:<path-to-.clang-format-embedded-c> -i src/main.c
+```
+
+NOTE: расширение C/C++ от Microsoft уже содержит clang-format, поэтому его не нужно устанавливать отдельно. Если вы хотите использовать свою версию clang-format, то можно указать путь к ней в настройках `C_Cpp.clang_format_path`. Обратите внимание на версию clang-format: она может быть разной в зависимости от того, используете ли вы clang-format из расширения или свою версию.
+
+### clang-tidy
+Для статического анализа кода используется clang-tidy с конфигурацией, представленной в файле `.clang-tidy-embedded-c`.
+
+Для анализа кода в редакторе VSCode, необходимо установить расширение [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) от Microsoft и указать в settings.json путь к файлу конфигурации:
+
+```json
+"C_Cpp.codeAnalysis.clangTidy.enabled": true,
+"C_Cpp.codeAnalysis.runAutomatically": true,
+"C_Cpp.codeAnalysis.exclude": {
+    "**/unittests/**": true,
+},
+"C_Cpp.codeAnalysis.clangTidy.args": [
+    "--config-file=<path-to-.clang-tidy-embedded-c>",
+],
+```
+
+После этого clang-tidy будет автоматически запускаться при открытии или сохранении файла, а найденные проблемы будут отображаться в панели "Problems".
+
+Для корректной работы clang-tidy из состава расширения C/C++ необходимо, чтобы в проекте присутствовал файл `.vscode/c_cpp_properties.json`, в котором указаны пути к заголовочным файлам и другие параметры компиляции. Стандарт языка должен быть `gnu11`.
+
+<details>
+<summary>Пример c_cpp_properties.json для одного таргета</summary>
+```json
+{
+    "name": "SIG_ups_v3",
+    "includePath": [
+        "include",
+        "libwbmcu-system/cmsis",
+        "libwbmcu-system/include",
+        "libwbmcu-periph",
+        "libwbmcu-i2c-eeprom",
+        "libwbmcu-modbus",
+        "libwbmcu-system/common",
+        "libwbmcu-system/flashfs",
+        "libfixmath/libfixmath",
+        "libwbmcu-system/Unity/src",
+        "libwbmcu-system/utest_helpers"
+    ],
+    "defines": [
+        "MODEL_SIG_ups_v3",
+        "MODBUS_DEVICE_FW_VERSION_NUMBERS=1,1,0,-2",
+        "MODBUS_DEVICE_FW_VERSION_STRING='1','.','1','.','0','-','r','c','2'",
+        "MODBUS_DEVICE_FW_VERSION=16842753",
+        "GD32E230X",
+        "HSE_VALUE=8000000",
+        "MODBUS_DEVICE_GIT_INFO=\"bce42f1_feature_parallel-ups\"",
+        "MODULE_NAME=startup"
+    ],
+    "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+    "compilerArgs": [
+        "-mcpu=cortex-m23",
+        "-mthumb"
+    ],
+    "cStandard": "gnu11",
+    "cppStandard": "c++17",
+    "intelliSenseMode": "linux-gcc-arm"
+}
+```
+</details>
+
+Также можно запускать clang-tidy из командной строки. Для этого необходимо сгенерировать файл compile_commands.json с помощью команды `bear`:
+```bash
+bear -- make MODEL_<model_name>
+```
+И запустить clang-tidy:
+```bash
+clang-tidy -p . -config-file=<path-to-.clang-tidy-embedded-c> src/main.c
+```
+
+### Отладочные сообщения расширения C/C++ в VSCode
+Чтобы видеть, что делает clang-tidy и clang-format при запуске из VSCode, можно включить отладочные сообщения расширения C/C++ в VSCode. Для этого нужно в settings.json добавить:
+```json
+"C_Cpp.loggingLevel": "Debug",
+"C_Cpp.debugShortcut": true,
+```
+После этого на панели "Output" появится новый пункт "C/C++", в котором будут отображаться отладочные сообщения.
+
 ## Именование
 ### Общее
 В embedded C не используется стиль CamelCase, вместо него применяется snake_case. В именах функций и переменных допускаются **только строчные буквы**, слова разделяются символом подчеркивания (`_`).
