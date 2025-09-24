@@ -1,4 +1,4 @@
-Wiren Board Python Style Guide
+[Wiren Board Python Style Guide](#python)
 ==============================
 
 За основу взят стиль, описанный в PEP8 (https://peps.python.org/pep-0008/).
@@ -432,7 +432,7 @@ Changelog
 
 
 
-Wiren Board Embedded C Style Guide
+[Wiren Board Embedded C Style Guide](#embedded-c)
 ========================
 
 The following sheet describes few recomodations in order to make an easy to read
@@ -833,7 +833,7 @@ enum w1_protocol_transaction {
 
 
 
-Wiren Board C++ Style Guide
+[Wiren Board C++ Style Guide](#cplusplus)
 ========================
 
 За основу взят яндексовский Style Guide для C++.
@@ -968,7 +968,7 @@ https://github.com/contactless/wb-homa-drivers/tree/master/wb-mqtt-serialo
 
 
 
-Wiren Board JavaScript Style Guide
+[Wiren Board JavaScript Style Guide](#js)
 ==============================
 
 За основу взят стиль [Airbnb](https://airbnb.io/javascript/).
@@ -1050,7 +1050,7 @@ $ npx prettier
 
 
 
-Wiren Board GO style guide
+[Wiren Board GO style guide](#go)
 ==========================
 
 Format your code with `go fmt`.
