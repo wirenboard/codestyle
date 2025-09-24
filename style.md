@@ -1053,16 +1053,16 @@ $ npx prettier
 [Wiren Board GO style guide](#go)
 ==========================
 
-Format your code with `go fmt`.
+Форматировать код стандартными тулзами `go fmt`.
 
-## Static analysis
+## Статический анализ
 
-Install [staticcheck](https://staticcheck.dev/):
+Установка [staticcheck](https://staticcheck.dev/):
 ```sh
 apt install go-staticcheck
 ```
 
-Running:
+Запуск:
 ```sh
 go mod vendor
 staticcheck -go 1.13 ./...
