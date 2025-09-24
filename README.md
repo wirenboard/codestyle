@@ -18,7 +18,7 @@ Codestyle
 
 ### Общие
 
-  * [Tools](./tools.md) - полезные утилиты на все случаи жизни
+  * [Tools](./guidelines/tools.md) - полезные утилиты на все случаи жизни
 
 ### Разработка под Linux
   * [WB services](./guidelines/services.md) - настройка WB сервисов
