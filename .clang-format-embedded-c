@@ -1,0 +1,58 @@
+---
+BasedOnStyle: LLVM
+Language: Cpp
+
+# Basic formatting
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+# Alignment
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+AlignAfterOpenBracket: BlockIndent
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1
+AlignEscapedNewlines: DontAlign
+
+# Braces
+InsertBraces: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterControlStatement: MultiLine
+  AfterEnum: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeElse: false
+  IndentBraces: false
+  AfterCaseLabel: false
+
+# Indentation
+IndentPPDirectives: None
+ContinuationIndentWidth: 4
+
+# Line breaks
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+SeparateDefinitionBlocks: Always
+InsertNewlineAtEOF: true
+PenaltyReturnTypeOnItsOwnLine: 1000
+
+# Parameters and arguments
+BinPackArguments: false
+BinPackParameters: false
+
+# Includes - explicitly disable sorting
+SortIncludes: false
+
+# Comments
+ReflowComments: true

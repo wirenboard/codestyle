@@ -1,0 +1,24 @@
+Checks: >
+  clang-analyzer-*,
+  clang-diagnostic-*,
+  readability-*,
+
+CheckOptions:
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: readability-identifier-naming.VariableIgnoredRegexp
+    value: '_.*'
+  - key: readability-identifier-naming.MacroCase
+    value: UPPER_CASE
+  - key: readability-identifier-length.MinimumVariableNameLength
+    value: 2
+  - key: readability-identifier-length.IgnoredVariableNames
+    value: '^i$|^j$|^k$|^f$|^b$'
+  - key: readability-identifier-length.MinimumParameterNameLength
+    value: 2
+
+HeaderFilterRegex: '^include\/.*'
+FormatStyle: none
+SystemHeaders: false
