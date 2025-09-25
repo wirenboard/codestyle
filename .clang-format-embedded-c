@@ -33,7 +33,7 @@ BraceWrapping:
   AfterCaseLabel: false
 
 # Indentation
-IndentPPDirectives: BeforeHash
+IndentPPDirectives: None
 ContinuationIndentWidth: 4
 
 # Line breaks
