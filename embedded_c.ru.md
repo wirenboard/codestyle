@@ -25,6 +25,8 @@ clang-format -style=file:<path-to-.clang-format-embedded-c> -i src/main.c
 
 NOTE: расширение C/C++ от Microsoft уже содержит clang-format, поэтому его не нужно устанавливать отдельно. Если вы хотите использовать свою версию clang-format, то можно указать путь к ней в настройках `C_Cpp.clang_format_path`. Обратите внимание на версию clang-format: она может быть разной в зависимости от того, используете ли вы clang-format из расширения или свою версию.
 
+Рекомендуется использовать clang-format из состава расширения C/C++.
+
 ### clang-tidy
 Для статического анализа кода используется clang-tidy с конфигурацией, представленной в файле `.clang-tidy-embedded-c`.
 
