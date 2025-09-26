@@ -7,19 +7,18 @@ Wiren Board codestyle
 Codestyle
 ---------
 
-  * [C++](./C++.ru.md) ([en](./C++.en.md))
-  * [Python](./python.ru.md)
-  * [Embedded C (en)](./embedded_c.en.md)
-  * [Javascript](https://github.com/airbnb/javascript)
-  * [Go (en)](./go.en.md)
+  * [C++](https://github.com/wirenboard/codestyle/blob/master/style.md#cplusplus)
+  * [Python](https://github.com/wirenboard/codestyle/blob/master/style.md#python)
+  * [Embedded C](https://github.com/wirenboard/codestyle/blob/master/style.md#embedded-c)
+  * [Javascript](https://github.com/wirenboard/codestyle/blob/master/style.md#js)
+  * [Go](https://github.com/wirenboard/codestyle/blob/master/style.md#go)
 
 Гайдлайны
 ---------
 
 ### Общие
 
-  * [Workflow](./workflow.md) - как пользоваться Git и трекером задач
-  * [Tools](./tools.md) - полезные утилиты на все случаи жизни
+  * [Tools](./guidelines/tools.md) - полезные утилиты на все случаи жизни
 
 ### Разработка под Linux
   * [WB services](./guidelines/services.md) - настройка WB сервисов
