@@ -1,0 +1,16 @@
+{
+    "python.testing.pytestArgs": [
+        "tests",
+        "--cov",
+        "--cov-config",
+        ".coveragerc",
+        "--cov-report",
+        "term",
+        "--cov-report",
+        "xml",
+        "--cov-fail-under",
+        "<limit>"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
