@@ -54,26 +54,20 @@
 
 ### Установка инструментов
 
-Скачайте из [этого репозитория](https://github.com/wirenboard/codestyle/tree/master/python/config) файл `.coveragerc` и положите в корень проекта.
+Необходимо настроить virtualenv в соответствии с [инструкцией]() - клонировать репозиторий и выполнить скрипт.
 
 ### Запуск
 
 В зависимости от того, как вы запускаете тесты, нужно использовать разные сценарии.
 **Минимально допустимое значение покрытия для прохождения тестов указывается в аргументе `--cov-fail-under`** 
 
-1. Внутри devcontainer
+1. Внутри [venv](#установка-инструментов-один-раз-для-проекта)
 
     ```console
     $ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-fail-under=<limit>
     ```
 
-2. Внутри [venv](#установка-инструментов-один-раз-для-проекта)
-
-    ```console
-    $ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-fail-under=<limit>
-    ```
-
-3. Сборка wbdev
+2. Сборка wbdev
 
     Работает только для `wbdev ndeb` и `wbdev cdeb`
     ```console
