@@ -1,0 +1,24 @@
+{
+    "image": "contactless/devenv:latest",
+    "runArgs": [
+        "--privileged",
+        "--network=host"
+    ],
+    "mounts": [
+        "source=${localWorkspaceFolder}/../codestyle,target=/workspaces/codestyle,type=bind"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.pylint@2024.2.0",
+                "ms-python.black-formatter@2024.6.0",
+                "ms-python.isort@2025.0.0",
+                "ryanluker.vscode-coverage-gutters",
+                "GitHub.copilot-chat",
+                "GitHub.copilot"
+            ]
+        }
+    },
+    "postCreateCommand": "bash ../codestyle/python/local/linux-devenv.sh"
+}
