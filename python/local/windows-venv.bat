@@ -1,5 +1,3 @@
-@echo off
-
 copy "..\codestyle\python\config\pyproject.toml" "."
 pip install virtualenv
 python -m venv .venv
@@ -7,8 +5,8 @@ call ".venv\Scripts\activate.bat"
 pip install -r "..\codestyle\python\config\requirements.txt"
 pip install attrs==23.1.0  
 
-REM don't want to make windows code complicated, so just copy extensions from .devcontainer.json
-set extensions=ms-python.python ms-python.pylint@2024.2.0 ms-python.black-formatter@2024.6.0 ms-python.isort@2025.0.0
+set extensions=
+for /f "tokens=*" %%i in ('python -c "import json; data=json.load(open('..\codestyle\python\\vscode\.devcontainer\devcontainer.json')); print(' '.join([ext for ext in data['customizations']['vscode']['extensions'] if ext.startswith('ms-python')]))"') do set extensions=%%i
 
 for %%e in (%extensions%) do (
     echo %%e | find "@" >nul
@@ -29,4 +27,5 @@ for %%e in (%extensions%) do (
             )
         )
     )
+  @echo off
 )
