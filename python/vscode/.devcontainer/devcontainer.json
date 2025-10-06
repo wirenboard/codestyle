@@ -10,6 +10,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
+                // fix the extension versions for compatibility with the fixed versions of black, isort, pylint
                 "ms-python.python",
                 "ms-python.pylint@2024.2.0",
                 "ms-python.black-formatter@2024.6.0",

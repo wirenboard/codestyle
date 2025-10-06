@@ -9,7 +9,7 @@
         "--cov-report",
         "xml",
         "--cov-fail-under",
-        "<limit>"
+        "<ЛИМИТ>"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true

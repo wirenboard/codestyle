@@ -21,7 +21,7 @@
 
 ### Установка инструментов (один раз для проекта)
 
-В зависимости от вашего проекта, необходимо настроить virtualenv или devenv по инструкции для VSCode.
+В зависимости от вашего проекта, необходимо настроить virtualenv или devenv по [инструкции для VSCode](https://docs.google.com/document/d/19gT4BH6MO-XXyqqzTOoz-jhY0ITbeGKDOZ8FbV_J1tc).
 
 ### Запуск
 
@@ -50,7 +50,7 @@
 
 ### Установка инструментов
 
-Для запуска тестов необходимо настроить devenv по инструкции для VSCode.
+Для запуска тестов необходимо настроить devenv по [инструкции для VSCode](https://docs.google.com/document/d/19gT4BH6MO-XXyqqzTOoz-jhY0ITbeGKDOZ8FbV_J1tc).
 
 ### Запуск
 
@@ -60,14 +60,14 @@
 1. Внутри devenv
 
     ```console
-    $ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-fail-under=<limit>
+    $ pytest --cov --cov-config=.coveragerc --cov-report=term --cov-fail-under=<ЛИМИТ>
     ```
 
 2. Сборка wbdev (без настройки devenv)
 
     Работает только для `wbdev ndeb` и `wbdev cdeb`
     ```console
-    $ export WBDEV_PYBUILD_TEST_ARGS="--cov --cov-config=../../../.coveragerc --cov-report=term --cov-fail-under=<limit>"
+    $ export WBDEV_PYBUILD_TEST_ARGS="--cov --cov-config=../../../.coveragerc --cov-report=term --cov-fail-under=<ЛИМИТ>"
     $ wbdev ndeb
     ```
 
