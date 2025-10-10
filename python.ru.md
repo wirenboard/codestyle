@@ -19,6 +19,8 @@
 
 Что именно происходит на CI - можно посмотреть [здесь](https://github.com/wirenboard/jenkins-pipeline-lib/blob/master/vars/wb.groovy) (поискав по ```runPythonChecks```; все скрипты берутся из codestyle). 
 
+В файле `devcontainer.json` версии расширений зафиксированы для совместимости с версиями наших инструментов.
+
 ### Установка инструментов (один раз для проекта)
 
 В зависимости от вашего проекта, необходимо настроить virtualenv или devenv по [инструкции для VSCode](https://docs.google.com/document/d/19gT4BH6MO-XXyqqzTOoz-jhY0ITbeGKDOZ8FbV_J1tc).
