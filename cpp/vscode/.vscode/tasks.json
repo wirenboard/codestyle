@@ -1,0 +1,90 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make -j12'",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug build",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf DEBUG=1 make -j12'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug build test",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf DEBUG=1 make -j12 test'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run certain test",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run all tests",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make -j12 test'",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run tests for debug",
+            "type": "shell",
+            "command": "cd test && qemu-arm-static -L /srv/chroot/sbuild-bullseye-cross -g 12345 wb-homa-test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": ["Debug build test"],
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug build and copy to remote target",
+            "type": "shell",
+            "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/build/debug/<ИМЯ БИНАРНИКА> root@<IP КОНТРОЛЛЕРА>:/usr/bin/",
+            "dependsOrder": "sequence",
+            "dependsOn": ["Debug build"],
+            "problemMatcher": []
+        },
+        {
+            "label": "Build and copy to remote target",
+            "type": "shell",
+            "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/build/release/<ИМЯ БИНАРНИКА> root@<IP КОНТРОЛЛЕРА>:/usr/bin/",
+            "dependsOrder": "sequence",
+            "dependsOn": ["Build"],
+            "problemMatcher": []
+        },        
+        {
+            "label": "Make deb (must be run outside of devenv)",
+            "type": "shell",
+            "command": "wbdev cdeb -j12",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run clang-tidy (must be run outside of devenv)",
+            "type": "shell",
+            "command": "WBDEV_TARGET=<ТАРГЕТ> wbdev compiledb sh -c 'CLANG_TIDY_EXTRA_ARG=-I/rootfs/${WBDEV_TARGET}/usr/include ../codestyle/cpp/ci/clang-tidy-subdirs.sh src'",
+            "problemMatcher": []
+        },
+    ]
+}
