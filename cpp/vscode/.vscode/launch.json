@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Remote debug",
+            "name": "[armhf] Remote debug",
             "type": "cppdbg",
             "request": "launch",
             "program": "/usr/bin/<ИМЯ БИНАРНИКА>",
@@ -27,7 +27,7 @@
                     "ignoreFailures": true
                 } 
             ],
-            "preLaunchTask": "Debug build and copy to remote target",
+            "preLaunchTask": "[armhf] Debug build and copy to remote target",
             "pipeTransport": {
                 "pipeCwd": "/usr/bin",
                 "pipeProgram": "/usr/bin/ssh",
@@ -39,10 +39,44 @@
             "filterStderr": true
         },
         {
-            "name": "Debug tests",
+            "name": "[arm64] Remote debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "test/wb-homa-test",
+            "program": "/usr/bin/<ИМЯ БИНАРНИКА>",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "/",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                { 
+                    "text": "handle SIGILL nostop noprint",
+                    "description": "ignore SIGILL",
+                    "ignoreFailures": true
+                } 
+            ],
+            "preLaunchTask": "[arm64] Debug build and copy to remote target",
+            "pipeTransport": {
+                "pipeCwd": "/usr/bin",
+                "pipeProgram": "/usr/bin/ssh",
+                "pipeArgs": [
+                    "root@<IP КОНТРОЛЛЕРА>"
+                ],
+                "debuggerPath": "/usr/bin/gdb"
+            },
+            "filterStderr": true
+        },
+        {
+            "name": "[armhf] Debug tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "<ПАПКА С БИНАРНИКОМ ТЕСТОВ>/<ИМЯ БИНАРНИКА ТЕСТОВ>",
             "miDebuggerServerAddress": "localhost:12345",
             "cwd": "${workspaceRoot}",
             "externalConsole": true,
@@ -76,7 +110,47 @@
                     "description": "set sysroot",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+        },
+        {
+            "name": "[arm64] Debug tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "<ПАПКА С БИНАРНИКОМ ТЕСТОВ>/<ИМЯ БИНАРНИКА ТЕСТОВ>",
+            "miDebuggerServerAddress": "localhost:12345",
+            "cwd": "${workspaceRoot}",
+            "externalConsole": true,
+            "filterStderr": true,
+            "filterStdout": true,
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/usr/bin/gdb-multiarch"
+            },
+            "args": [],
+            "stopAtEntry": true,
+            "environment": [],
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                { 
+                    "text": "set arch aarch64",
+                    "description": "set arch",
+                    "ignoreFailures": true
+                },
+                { 
+                    "text": "handle SIGILL nostop noprint",
+                    "description": "ignore SIGILL",
+                    "ignoreFailures": true
+                },
+                { 
+                    "text": "set sysroot /srv/chroot/sbuild-bullseye-cross",
+                    "description": "set sysroot",
+                    "ignoreFailures": true
+                }
+            ],
         }
     ]
 }
