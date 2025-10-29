@@ -6,7 +6,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make -j12'",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=${DEB_HOST_MULTIARCH} make -j12'",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -16,21 +16,21 @@
         {
             "label": "Debug build",
             "type": "shell",
-            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf DEBUG=1 make -j12'",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=${DEB_HOST_MULTIARCH} DEBUG=1 make -j12'",
             "group": "build",
             "problemMatcher": []
         },
         {
-            "label": "Debug build test",
+            "label": "Debug build test with coverage",
             "type": "shell",
-            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf DEBUG=1 make -j12 test'",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=${DEB_HOST_MULTIARCH} DEBUG=1 make -j12 test'",
             "group": "build",
             "problemMatcher": []
         },
         {
             "label": "Run certain test",
             "type": "shell",
-            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=${DEB_HOST_MULTIARCH} TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -40,7 +40,7 @@
         {
             "label": "Run all tests",
             "type": "shell",
-            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make -j12 test'",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=${DEB_HOST_MULTIARCH} make -j12 test'",
             "group": {
                 "kind": "test",
                 "isDefault": true
