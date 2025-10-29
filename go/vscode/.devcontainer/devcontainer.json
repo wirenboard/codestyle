@@ -1,0 +1,25 @@
+{
+    "image": "contactless/devenv:latest",
+    "postCreateCommand": "bash -i ./.devcontainer/devenv-setup.sh",
+    "runArgs": [ "--privileged" ]
+}
+{
+    "image": "contactless/devenv:latest",
+    "runArgs": [
+        "--privileged",
+        "--network=host"
+    ],
+    "mounts": [
+        "source=${localWorkspaceFolder}/../codestyle,target=/workspaces/codestyle,type=bind"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.Go",
+                "GitHub.copilot-chat",
+                "GitHub.copilot"
+            ]
+        }
+    },
+    "postCreateCommand": "bash ../codestyle/go/local/linux-devenv.sh"
+}
