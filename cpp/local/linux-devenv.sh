@@ -1,6 +1,9 @@
 #!/bin/bash
+
 cp ../codestyle/cpp/config/.clang-format ../codestyle/cpp/config/.clang-tidy ./
-cp -r ../codestyle/cpp/vscode/.vscode/ ./
+if [ ! -d .vscode ]; then
+    cp -r ../codestyle/cpp/vscode/.vscode/ ./
+fi
 
 DIR=$(pwd)
 DEB_RELEASE="$(source /etc/os-release; echo $VERSION_CODENAME)"
