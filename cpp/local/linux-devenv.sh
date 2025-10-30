@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cp ../codestyle/cpp/config/.clang-format ../codestyle/cpp/config/.clang-tidy ./
-if [ ! -d .vscode ]; then
+if [ ! -d ".vscode" ]; then
     cp -r ../codestyle/cpp/vscode/.vscode/ ./
 fi
 
