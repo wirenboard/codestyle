@@ -1,0 +1,165 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "[armhf] Build",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make -j12'",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Debug build",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf DEBUG=1 make -j12'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Debug build test with coverage",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf DEBUG=1 make -j12 test'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Run certain test",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Run all tests",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf make -j12 test'",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Run tests for debug",
+            "type": "shell",
+            "command": "cd <ПАПКА С БИНАРНИКОМ ТЕСТОВ> && qemu-arm-static -L /srv/chroot/sbuild-bullseye-cross -g 12345 <ИМЯ БИНАРНИКА ТЕСТОВ>",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": ["[armhf] Debug build test with coverage"],
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Debug build and copy to remote target",
+            "type": "shell",
+            "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/build/debug/<ИМЯ БИНАРНИКА> root@<IP КОНТРОЛЛЕРА>:/usr/bin/",
+            "dependsOrder": "sequence",
+            "dependsOn": ["[armhf] Debug build"],
+            "problemMatcher": []
+        },
+        {
+            "label": "[armhf] Build and copy to remote target",
+            "type": "shell",
+            "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/build/release/<ИМЯ БИНАРНИКА> root@<IP КОНТРОЛЛЕРА>:/usr/bin/",
+            "dependsOrder": "sequence",
+            "dependsOn": ["[armhf] Build"],
+            "problemMatcher": []
+        },    
+        {
+            "label": "[armhf] Run clang-tidy (must be run outside of devenv)",
+            "type": "shell",
+            "command": "WBDEV_TARGET=current-armhf wbdev compiledb sh -c 'CLANG_TIDY_EXTRA_ARG=-I/rootfs/${WBDEV_TARGET}/usr/include ../codestyle/cpp/ci/clang-tidy-subdirs.sh src'",
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Build",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu make -j12'",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Debug build",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu DEBUG=1 make -j12'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Debug build test with coverage",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu DEBUG=1 make -j12 test'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Run certain test",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Run all tests",
+            "type": "shell",
+            "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu make -j12 test'",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Run tests for debug",
+            "type": "shell",
+            "command": "cd <ПАПКА С БИНАРНИКОМ ТЕСТОВ> && qemu-aarch64-static -L /srv/chroot/sbuild-bullseye-cross -g 12345 <ИМЯ БИНАРНИКА ТЕСТОВ>",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": ["[arm64] Debug build test with coverage"],
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Debug build and copy to remote target",
+            "type": "shell",
+            "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/build/debug/<ИМЯ БИНАРНИКА> root@<IP КОНТРОЛЛЕРА>:/usr/bin/",
+            "dependsOrder": "sequence",
+            "dependsOn": ["[arm64] Debug build"],
+            "problemMatcher": []
+        },
+        {
+            "label": "[arm64] Build and copy to remote target",
+            "type": "shell",
+            "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/build/release/<ИМЯ БИНАРНИКА> root@<IP КОНТРОЛЛЕРА>:/usr/bin/",
+            "dependsOrder": "sequence",
+            "dependsOn": ["[arm64] Build"],
+            "problemMatcher": []
+        },          
+        {
+            "label": "[arm64] Run clang-tidy (must be run outside of devenv)",
+            "type": "shell",
+            "command": "WBDEV_TARGET=current-arm64 wbdev compiledb sh -c 'CLANG_TIDY_EXTRA_ARG=-I/rootfs/${WBDEV_TARGET}/usr/include ../codestyle/cpp/ci/clang-tidy-subdirs.sh src'",
+            "problemMatcher": []
+        },   
+        {
+            "label": "Make deb (must be run outside of devenv)",
+            "type": "shell",
+            "command": "wbdev cdeb -j12",
+            "problemMatcher": []
+        }
+    ]
+}
