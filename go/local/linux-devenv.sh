@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp -r ../codestyle/cpp/vscode/.vscode/ ./
+[ -d ./.vscode ] || cp -r ../codestyle/go/vscode/.vscode/ ./
 
 dir=$(pwd)
 schroot -c bullseye-amd64-sbuild --directory=/ -- mkdir -p $dir

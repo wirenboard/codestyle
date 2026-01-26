@@ -2,7 +2,7 @@
 TARGET_LIST="wb7 wb8"
 
 cp ../codestyle/cpp/config/.clang-format ../codestyle/cpp/config/.clang-tidy ./
-cp -r ../codestyle/cpp/vscode/.vscode/ ./
+[ -d ./.vscode ] || cp -r ../codestyle/cpp/vscode/.vscode/ ./
 
 DIR=$(pwd)
 DEB_RELEASE="$(source /etc/os-release; echo $VERSION_CODENAME)"
