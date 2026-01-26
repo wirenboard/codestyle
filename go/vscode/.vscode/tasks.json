@@ -1,10 +1,29 @@
 {
   "version": "2.0.0",
+  "options": {
+    "shell": {
+      "executable": "schroot",
+      "args": [
+        "-p",
+        "-c",
+        "bullseye-amd64-sbuild",
+        "--",
+        "/bin/bash",
+        "-c"
+      ]
+    },
+    "env": {
+      "TARGET_ARCH": "arm64",
+      "DEB_TARGET_ARCH": "arm64",
+      "GO": "/usr/lib/go-1.21/bin/go",
+      "WBGO_LOCAL_PATH": "wbgo"
+    }
+  },
   "tasks": [
     {
       "label": "Build",
       "type": "shell",
-      "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'make DEB_TARGET_ARCH=amd64 GO=/usr/lib/go-1.21/bin/go wb-rules'",
+      "command": "make wb-rules",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -12,29 +31,56 @@
       "problemMatcher": []
     },
     {
-      "label": "Run all tests",
+      "label": "Run tests",
       "type": "shell",
-      "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'make GO=/usr/lib/go-1.21/bin/go WBGO_LOCAL_PATH=wbgo test'",
+      "command": "make test",
       "group": {
         "kind": "test",
         "isDefault": true
       },
       "dependsOn": [
-        "[wbgo] Build"
+        "[wbgo] Build (amd64)"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Run certain test",
+      "type": "shell",
+      "command": "make test GOFLAGS=-run=TestRuleReloadSuite/TestNoReloading",
+      "group": "test",
+      "dependsOn": [
+        "[wbgo] Build (amd64)"
       ],
       "problemMatcher": []
     },
     {
       "label": "[wbgo] Build",
       "type": "shell",
-      "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'make -C wbgo TARGET_ARCH=amd64 GO=/usr/lib/go-1.21/bin/go wbgoso'",
+      "command": "make wbgoso",
+      "options": {
+        "cwd": "${workspaceFolder}/wbgo"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "[wbgo] Build (amd64)",
+      "type": "shell",
+      "command": "make wbgoso TARGET_ARCH=amd64",
+      "options": {
+        "cwd": "${workspaceFolder}/wbgo"
+      },
       "group": "build",
       "problemMatcher": []
     },
     {
       "label": "[wbgo] Run tests",
       "type": "shell",
-      "command": "schroot -c bullseye-amd64-sbuild -- /bin/bash -c 'make -C wbgo TARGET_ARCH=amd64 GO=/usr/lib/go-1.21/bin/go test'",
+      "command": "make test",
+      "options": {
+        "cwd": "${workspaceFolder}/wbgo"
+      },
+      "group": "test",
       "problemMatcher": []
     }
   ]
