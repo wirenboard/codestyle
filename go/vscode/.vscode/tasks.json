@@ -9,13 +9,13 @@
         "bullseye-amd64-sbuild",
         "--",
         "/bin/bash",
-        "-c"
+        "-cl"
       ]
     },
     "env": {
       "TARGET_ARCH": "arm64",
       "DEB_TARGET_ARCH": "arm64",
-      "GO": "/usr/lib/go-1.21/bin/go",
+      "GOTEST": "gotestsum --format=testname --",
       "WBGO_LOCAL_PATH": "wbgo"
     }
   },

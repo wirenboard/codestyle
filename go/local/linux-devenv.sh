@@ -2,11 +2,13 @@
 
 [ -d ./.vscode ] || cp -r ../codestyle/go/vscode/.vscode/ ./
 
-dir=$(pwd)
-schroot -c bullseye-amd64-sbuild --directory=/ -- mkdir -p $dir
-echo "$dir  $dir   none    rw,bind         0       0" >> /etc/schroot/sbuild/fstab
+DIR=$(pwd)
+DEB_RELEASE="$(source /etc/os-release; echo $VERSION_CODENAME)"
+CHROOT="schroot -c ${DEB_RELEASE}-amd64-sbuild --directory=${DIR} --"
 
-apt update
+echo "${DIR} ${DIR} none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
 
-schroot -c bullseye-amd64-sbuild --directory=/ -- apt-get update
-schroot -c bullseye-amd64-sbuild --directory=/ -- apt-get -y install golang-1.21-go:native
+${CHROOT} apt-get update
+${CHROOT} apt-get -y install golang-1.21-go:native gotestsum
+
+${CHROOT} sh -c 'echo "export PATH=/usr/lib/go-1.21/bin:\$PATH" >> /root/.bashrc'
