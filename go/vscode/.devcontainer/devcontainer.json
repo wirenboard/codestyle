@@ -5,7 +5,9 @@
         "--network=host"
     ],
     "mounts": [
-        "source=${localWorkspaceFolder}/../codestyle,target=/workspaces/codestyle,type=bind"
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,readonly,type=bind",
+        "source=${localWorkspaceFolder}/../codestyle,target=/workspaces/codestyle,type=bind",
+        "source=${localWorkspaceFolder}/../wbgo,target=/workspaces/wbgo,type=bind"
     ],
     "customizations": {
         "vscode": {
@@ -16,5 +18,8 @@
             ]
         }
     },
-    "postCreateCommand": "bash ../codestyle/go/local/linux-devenv.sh"
+    "postCreateCommand": "bash ../codestyle/go/local/linux-devenv.sh",
+    "containerEnv": {
+        "PATH": "/usr/local/go/bin:/root/go/bin:${localEnv:PATH}"
+    }
 }

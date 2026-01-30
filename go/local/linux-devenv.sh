@@ -2,13 +2,12 @@
 
 [ -d ./.vscode ] || cp -r ../codestyle/go/vscode/.vscode/ ./
 
-DIR=$(pwd)
-DEB_RELEASE="$(source /etc/os-release; echo $VERSION_CODENAME)"
-CHROOT="schroot -c ${DEB_RELEASE}-amd64-sbuild --directory=${DIR} --"
+GOVERSION=1.25.6
 
-echo "${DIR} ${DIR} none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
+curl -LO https://go.dev/dl/go$GOVERSION.linux-amd64.tar.gz
+tar -C /usr/local -xzf go$GOVERSION.linux-amd64.tar.gz
+rm -f go$GOVERSION.linux-amd64.tar.gz
 
-${CHROOT} apt-get update
-${CHROOT} apt-get -y install golang-1.21-go:native gotestsum
-
-${CHROOT} sh -c 'echo "export PATH=/usr/lib/go-1.21/bin:\$PATH" >> /root/.bashrc'
+/usr/local/go/bin/go install github.com/go-delve/delve/cmd/dlv@latest
+/usr/local/go/bin/go install golang.org/x/tools/gopls@latest
+/usr/local/go/bin/go install gotest.tools/gotestsum@latest
