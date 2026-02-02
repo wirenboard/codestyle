@@ -1,29 +1,19 @@
 {
   "version": "2.0.0",
   "options": {
-    "shell": {
-      "executable": "schroot",
-      "args": [
-        "-p",
-        "-c",
-        "bullseye-amd64-sbuild",
-        "--",
-        "/bin/bash",
-        "-c"
-      ]
-    },
     "env": {
+      "DEBUG": "1",
       "TARGET_ARCH": "arm64",
       "DEB_TARGET_ARCH": "arm64",
-      "GO": "/usr/lib/go-1.21/bin/go",
-      "WBGO_LOCAL_PATH": "wbgo"
+      "GOTEST": "gotestsum --format=testname --",
+      "WBGO_LOCAL_PATH": "../wbgo"
     }
   },
   "tasks": [
     {
       "label": "Build",
       "type": "shell",
-      "command": "make wb-rules",
+      "command": "make <ИМЯ БИНАРНИКА>",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -58,7 +48,7 @@
       "type": "shell",
       "command": "make wbgoso",
       "options": {
-        "cwd": "${workspaceFolder}/wbgo"
+        "cwd": "${workspaceFolder}/../wbgo"
       },
       "group": "build",
       "problemMatcher": []
@@ -68,7 +58,7 @@
       "type": "shell",
       "command": "make wbgoso TARGET_ARCH=amd64",
       "options": {
-        "cwd": "${workspaceFolder}/wbgo"
+        "cwd": "${workspaceFolder}/../wbgo"
       },
       "group": "build",
       "problemMatcher": []
@@ -78,9 +68,31 @@
       "type": "shell",
       "command": "make test",
       "options": {
-        "cwd": "${workspaceFolder}/wbgo"
+        "cwd": "${workspaceFolder}/../wbgo"
       },
       "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Copy to wb",
+      "type": "shell",
+      "command": "scp /workspaces/<ИМЯ ПРОЕКТА>/<ИМЯ БИНАРНИКА> /workspaces/wbgo/arm64.wbgo.so root@<IP КОНТРОЛЛЕРА>:",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build",
+        "[wbgo] Build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Remote exec",
+      "type": "shell",
+      "command": "ssh",
+      "args": [
+        "root@<IP КОНТРОЛЛЕРА>",
+        "go/bin/dlv --listen=:4000 --headless=true --api-version=2 exec -- ./<ИМЯ БИНАРНИКА> -wbgo ./arm64.wbgo.so"
+      ],
+      "isBackground": true,
       "problemMatcher": []
     }
   ]

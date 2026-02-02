@@ -2,11 +2,12 @@
 
 [ -d ./.vscode ] || cp -r ../codestyle/go/vscode/.vscode/ ./
 
-dir=$(pwd)
-schroot -c bullseye-amd64-sbuild --directory=/ -- mkdir -p $dir
-echo "$dir  $dir   none    rw,bind         0       0" >> /etc/schroot/sbuild/fstab
+GOVERSION=1.25.6
 
-apt update
+curl -LO https://go.dev/dl/go$GOVERSION.linux-amd64.tar.gz
+tar -C /usr/local -xzf go$GOVERSION.linux-amd64.tar.gz
+rm -f go$GOVERSION.linux-amd64.tar.gz
 
-schroot -c bullseye-amd64-sbuild --directory=/ -- apt-get update
-schroot -c bullseye-amd64-sbuild --directory=/ -- apt-get -y install golang-1.21-go:native
+/usr/local/go/bin/go install github.com/go-delve/delve/cmd/dlv@latest
+/usr/local/go/bin/go install golang.org/x/tools/gopls@latest
+/usr/local/go/bin/go install gotest.tools/gotestsum@latest
