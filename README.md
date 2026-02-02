@@ -4,7 +4,7 @@ Wiren Board codestyle
   * [C++](./C++.ru.md) ([en](./C++.en.md))
   * [Python](./python.ru.md)
   * [Embedded C (en)](./embedded_c.en.md)
-  * [Javascript](https://github.com/airbnb/javascript)
+  * [Frontend](./frontend.ru.md)
   * [Go (en)](./go.en.md)
 
 Дополнительная информация
