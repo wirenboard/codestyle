@@ -6,7 +6,7 @@ VS Code DevContainers without VS Code. Runs the same `devcontainer.json`, `tasks
 
 ```bash
 cd ~/work/board/wb-mqtt-serial
-../codestyle/devcontainer-cli up --language cpp
+../codestyle/devcontainer-cli --language cpp up
 ```
 
 This creates a Docker container, starts it, and runs `postCreateCommand` (installs dev dependencies).
@@ -17,10 +17,10 @@ This creates a Docker container, starts it, and runs `postCreateCommand` (instal
 
 ```bash
 # Create and start container (first time runs postCreateCommand)
-../codestyle/devcontainer-cli up --language cpp
+../codestyle/devcontainer-cli --language cpp up
 
 # Rebuild from scratch
-../codestyle/devcontainer-cli up --language cpp --rebuild
+../codestyle/devcontainer-cli --language cpp up --rebuild
 
 # Stop container (keeps state)
 ../codestyle/devcontainer-cli stop
