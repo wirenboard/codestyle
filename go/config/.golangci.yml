@@ -40,6 +40,9 @@ linters:
         - shadow
     lll:
       line-length: 140
+    misspell:
+      ignore-rules:
+        - mosquitto
   exclusions:
     generated: lax
     rules:
