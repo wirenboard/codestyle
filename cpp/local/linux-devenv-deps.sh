@@ -10,11 +10,11 @@ DEPS=()
 
 for TARGET in ${TARGET_LIST}; do
     case ${TARGET} in
-        wb8) 
-            ARCH=arm64 
+        wb8)
+            ARCH=arm64
             ;;
-        *)   
-            ARCH=armhf 
+        *)
+            ARCH=armhf
             ;;
     esac
 
