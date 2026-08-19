@@ -28,7 +28,7 @@
         {
             "label": "[armhf] Run certain test",
             "type": "shell",
-            "command": "schroot -c trixie-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
+            "command": "schroot -c trixie-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=arm-linux-gnueabihf TEST_ARGS=--gtest_filter=<ИМЯ ТЕСТА> make -j12 test'",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -105,7 +105,7 @@
         {
             "label": "[arm64] Run certain test",
             "type": "shell",
-            "command": "schroot -c trixie-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu TEST_ARGS='--gtest_filter=<ИМЯ ТЕСТА>' make -j12 test'",
+            "command": "schroot -c trixie-amd64-sbuild -- /bin/bash -c 'DEB_HOST_MULTIARCH=aarch64-linux-gnu TEST_ARGS=--gtest_filter=<ИМЯ ТЕСТА> make -j12 test'",
             "group": {
                 "kind": "test",
                 "isDefault": true
