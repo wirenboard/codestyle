@@ -21,11 +21,11 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 },
-                { 
+                {
                     "text": "handle SIGILL nostop noprint",
                     "description": "ignore SIGILL",
                     "ignoreFailures": true
-                } 
+                }
             ],
             "preLaunchTask": "[armhf] Debug build and copy to remote target",
             "pipeTransport": {
@@ -55,11 +55,11 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 },
-                { 
+                {
                     "text": "handle SIGILL nostop noprint",
                     "description": "ignore SIGILL",
                     "ignoreFailures": true
-                } 
+                }
             ],
             "preLaunchTask": "[arm64] Debug build and copy to remote target",
             "pipeTransport": {
@@ -95,18 +95,18 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 },
-                { 
+                {
                     "text": "set arch arm",
                     "description": "set arch",
                     "ignoreFailures": true
                 },
-                { 
+                {
                     "text": "handle SIGILL nostop noprint",
                     "description": "ignore SIGILL",
                     "ignoreFailures": true
                 },
-                { 
-                    "text": "set sysroot /srv/chroot/sbuild-bullseye-cross",
+                {
+                    "text": "set sysroot /srv/chroot/sbuild-trixie-cross",
                     "description": "set sysroot",
                     "ignoreFailures": true
                 }
@@ -135,18 +135,18 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 },
-                { 
+                {
                     "text": "set arch aarch64",
                     "description": "set arch",
                     "ignoreFailures": true
                 },
-                { 
+                {
                     "text": "handle SIGILL nostop noprint",
                     "description": "ignore SIGILL",
                     "ignoreFailures": true
                 },
-                { 
-                    "text": "set sysroot /srv/chroot/sbuild-bullseye-cross",
+                {
+                    "text": "set sysroot /srv/chroot/sbuild-trixie-cross",
                     "description": "set sysroot",
                     "ignoreFailures": true
                 }

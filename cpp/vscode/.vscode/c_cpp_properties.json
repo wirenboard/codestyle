@@ -2,11 +2,11 @@
     "configurations": [
         {
             "name": "Linux",
-            "compilerPath": "/srv/chroot/sbuild-bullseye-cross/usr/bin/arm-linux-gnueabihf-gcc",
+            "compilerPath": "/srv/chroot/sbuild-trixie-cross/usr/bin/arm-linux-gnueabihf-gcc",
             "intelliSenseMode": "gcc-arm",
-            "cppStandard": "c++17",
+            "cppStandard": "c++20",
             "includePath": [
-                "/srv/chroot/sbuild-bullseye-cross/usr/include/**",
+                "/srv/chroot/sbuild-trixie-cross/usr/include/**",
                 "/workspaces/<ИМЯ ПРОЕКТА>/..."
             ]
         }

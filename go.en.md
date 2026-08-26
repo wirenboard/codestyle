@@ -12,5 +12,5 @@ apt install go-staticcheck
 Running:
 ```sh
 go mod vendor
-staticcheck -go 1.13 ./...
+staticcheck -go 1.26 ./...
 ```
