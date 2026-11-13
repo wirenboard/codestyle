@@ -12,11 +12,11 @@ setup(
     name="",
     version=get_version(),
     description="",
-    license="MIT",
+    license="",  # имя лицензии из файла LICENSE в корне репозитория: "MIT" или "MIT-WB"
     author="",
     author_email="",
     maintainer="Wiren Board Team",
     maintainer_email="info@wirenboard.com",
-    url="https://github.com/wirenboard/wb-nm-helper",
+    url="https://github.com/wirenboard/<repo>",
     packages=[],
 )
